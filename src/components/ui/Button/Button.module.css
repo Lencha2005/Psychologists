@@ -1,0 +1,51 @@
+.button {
+  border-radius: 20px;
+  padding: 14px 40px;
+  border: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color var(--primary-transition);
+}
+
+.buttonLog {
+  border: 1px solid rgba(25, 26, 21, 0.2);
+  background-color: transparent;
+  color: var(--color-primary-black);
+  transition: border-color --primary-transition;
+}
+
+.buttonLog:hover,
+.buttonLog:focus {
+  border-color: var(--color-primary-black);
+}
+
+/* Themes */
+.button-green {
+  background-color: var(--color-primary-green);
+  color: white;
+}
+
+.button-green:hover,
+.button-green:focus {
+  background-color: var(--color-secondary-green);
+}
+
+.button-blue {
+  background-color: #3470ff;
+  color: white;
+}
+
+.button-blue:hover,
+.button-blue:focus {
+  background-color: #255ee8;
+}
+
+.button-orange {
+  background-color: #fc832c;
+  color: white;
+}
+
+.button-orange:hover,
+.button-orange:focus {
+  background-color: #f37113;
+}
