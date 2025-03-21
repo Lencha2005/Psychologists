@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchPsychologists } from './operations';
 
 const INITIAL_STATE = {
   items: [],
@@ -10,12 +11,17 @@ const INITIAL_STATE = {
 };
 
 const psychologistSlice = createSlice({
-  name: 'psychologist',
+  name: 'psychologists',
   initialState: INITIAL_STATE,
   reducers: {
     toggleFavorite(state, action) {},
   },
-  extraReducers: builder => builder,
+  extraReducers: builder => builder
+  .addCase(fetchPsychologists.fulfilled, (state, action) => {
+    state.isLoading = false;
+    state.items = action.payload;
+    state.error = null;
+  })
 });
 
 export const psychologistReduser = psychologistSlice.reducer;

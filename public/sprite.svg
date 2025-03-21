@@ -6,6 +6,9 @@
 <symbol id="icon-check-green" viewBox="0 0 32 32">
 <path fill="#54be96" style="fill: var(--color2, #54be96)" d="M4 12l-4 4 12 12 20-20-4-4-16 16-8-8z"></path>
 </symbol>
+<symbol id="icon-check" viewBox="0 0 40 32">
+<path d="M5 11l-5 5 15 15 25-25-5-5-20 20-10-10z"></path>
+</symbol>
 <symbol id="icon-chevron" viewBox="0 0 32 32">
 <path fill="none" stroke="#fbfbfb" style="stroke: var(--color1, #fbfbfb)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.2" d="M8 20l8-8 8 8"></path>
 </symbol>
@@ -48,6 +51,9 @@
 </symbol>
 <symbol id="icon-chevron1" viewBox="0 0 35 32">
 <path d="M17.089 6.984c0.078-0.078 0.171-0.141 0.274-0.183s0.212-0.064 0.323-0.064c0.111 0 0.22 0.022 0.323 0.064s0.195 0.105 0.273 0.183l10.105 10.105c0.158 0.158 0.247 0.373 0.247 0.596s-0.089 0.438-0.247 0.596c-0.158 0.158-0.373 0.247-0.596 0.247s-0.438-0.089-0.596-0.247l-9.509-9.511-9.509 9.511c-0.158 0.158-0.373 0.247-0.596 0.247s-0.438-0.089-0.596-0.247c-0.158-0.158-0.247-0.373-0.247-0.596s0.089-0.438 0.247-0.596l10.105-10.105z"></path>
+</symbol>
+<symbol id="icon-burger" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.2857" d="M4 11.333h24M4 20.667h24"></path>
 </symbol>
 </defs>
 </svg>

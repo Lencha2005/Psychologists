@@ -1,8 +1,9 @@
 .button {
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 14px 40px;
   border: transparent;
   cursor: pointer;
+  font-size: 16px;
   font-weight: 500;
   transition: background-color var(--primary-transition);
 }
@@ -20,19 +21,19 @@
 }
 
 /* Themes */
-.button-green {
+.buttonGreen {
   background-color: var(--color-primary-green);
-  color: white;
+  color: var(--color-primary-white);
 }
 
-.button-green:hover,
-.button-green:focus {
+.buttonGreen:hover,
+.buttonGreen:focus {
   background-color: var(--color-secondary-green);
 }
 
 .button-blue {
   background-color: #3470ff;
-  color: white;
+  color: var(--color-primary-white);
 }
 
 .button-blue:hover,
@@ -42,7 +43,7 @@
 
 .button-orange {
   background-color: #fc832c;
-  color: white;
+  color: var(--color-primary-white);
 }
 
 .button-orange:hover,

@@ -8,15 +8,17 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAAPKK9G77edDxOW3-ZVZt179_TgP1y_-s',
-  authDomain: 'psychologists-f3b30.firebaseapp.com',
-  projectId: 'psychologists-f3b30',
-  storageBucket: 'psychologists-f3b30.firebasestorage.app',
-  messagingSenderId: '1034601949225',
-  appId: '1:1034601949225:web:c31cac5fe00120ae069438',
+  apiKey: "AIzaSyCfRFiFkPFWQcXRvaqbsAUafHvjVWFloII",
+  authDomain: "psychologists-eae8e.firebaseapp.com",
+  projectId: "psychologists-eae8e",
+  storageBucket: "psychologists-eae8e.firebasestorage.app",
+  messagingSenderId: "308542041228",
+  appId: "1:308542041228:web:dd531b9f151fe2704e9fa9"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+console.log('app: ', app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+console.log('db: ', db);

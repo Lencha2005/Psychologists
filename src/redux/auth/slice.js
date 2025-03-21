@@ -5,9 +5,10 @@ const INITIAL_STATE = {
     name: null,
     email: null,
   },
-  isLoading: false,
+  // token,
   isLoggedIn: false,
   isRefreshing: false,
+  isLoading: false,
   error: null,
 };
 
