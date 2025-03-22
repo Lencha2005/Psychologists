@@ -24,5 +24,5 @@ const psychologistSlice = createSlice({
   })
 });
 
-export const psychologistReduser = psychologistSlice.reducer;
+export const psychologistReducer = psychologistSlice.reducer;
 export const {toggleFavorite} = psychologistSlice.actions;

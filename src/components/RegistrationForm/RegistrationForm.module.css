@@ -1,0 +1,113 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: rgba(25, 26, 21, 0.6);
+}
+
+.modal {
+  position: absolute;
+  top: 100px;
+  border-radius: 30px;
+  background-color: var(--color-primary-white);
+  width: 300px;
+  padding: 32px;
+  outline: transparent;
+}
+
+.btnClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 34px;
+}
+
+.iconClose {
+  width: 32px;
+  height: 32px;
+  stroke: var(--color-primary-black);
+}
+
+.title {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.text {
+  color: rgba(25, 26, 21, 0.5);
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.label {
+  position: relative;
+}
+
+.input {
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 100%;
+  height: 52px;
+  transition: border-color var(--primary-transition);
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--color-secondary-green);
+  outline: transparent;
+}
+
+.errorMessage {
+  font-size: 12px;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+}
+
+.iconEye {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: var(--color-primary-black);
+}
+
+.btnSignUp {
+  margin-top: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .modal {
+    width: 565px;
+    padding: 64px;
+  }
+}

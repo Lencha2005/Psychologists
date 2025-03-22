@@ -17,10 +17,10 @@ const NotFoundPage = lazy(() =>
 );
 
 function App() {
-  const theme = useSelector((state) => state.theme.theme);
+  const theme = useSelector(state => state.theme.theme);
 
   useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
+    document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
   return (

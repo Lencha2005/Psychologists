@@ -45,7 +45,7 @@ const Header = () => {
 
         <div className={`${css.menu} ${menuOpen ? css.open : ''}`}>
           <Navigation onClose={() => setMenuOpen(false)} />
-          {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+          {isLoggedIn ? <UserMenu onClose={() => setMenuOpen(false)}/> : <AuthMenu onClose={() => setMenuOpen(false)}/>}
         </div>
       </div>
     </header>
