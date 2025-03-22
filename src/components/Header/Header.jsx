@@ -1,31 +1,3 @@
-// import { useSelector } from 'react-redux';
-// import Logo from '../Logo/Logo';
-// import Navigation from '../Navigation/Navigation';
-
-// import { selectIsLoggedIn } from '../../redux/auth/selectors';
-// import UserMenu from '../UserMenu/UserMenu';
-// import AuthMenu from '../AuthMenu/AuthMenu';
-// import Container from '../ui/Container/Container';
-
-// import css from './Header.module.css';
-// import { useState } from 'react';
-
-// const Header = () => {
-//   const isLoggedIn = useSelector(selectIsLoggedIn);
-
-//   return (
-//     <header className={css.header}>
-//       <div className={css.wrapper}>
-//       <Logo />
-//       <Navigation />
-//       {isLoggedIn ? <UserMenu /> : <AuthMenu />}
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Header;
-
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -48,7 +20,7 @@ const Header = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth >= 768) {
-        setMenuOpen(false); // Закриваємо меню при розширенні екрану
+        setMenuOpen(false);
       }
     };
 
@@ -58,24 +30,23 @@ const Header = () => {
 
   return (
     <header className={css.header}>
-      <Logo />
+      <div className={css.wrapper}>
+        <Logo />
 
-      {
-        /* Бургер-кнопка для відкриття меню */
-        isMobile && (
-          <button className={css.btn} onClick={() => setMenuOpen(!menuOpen)} >
+        {isMobile && (
+          <button className={css.btn} onClick={() => setMenuOpen(!menuOpen)}>
             <svg className={css.iconBtn}>
-            <use href={`${sprite}#${menuOpen ? "icon-close" : "icon-burger"}`} />
-          </svg>
+              <use
+                href={`${sprite}#${menuOpen ? 'icon-close' : 'icon-burger'}`}
+              />
+            </svg>
           </button>
-        )
-      }
+        )}
 
-      {/* Мобільне меню */}
-      <div
-        className={`${css.menu} ${menuOpen ? css.open : ''}`} >
-        <Navigation onClose={() => setMenuOpen(false)}/>
-        {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+        <div className={`${css.menu} ${menuOpen ? css.open : ''}`}>
+          <Navigation onClose={() => setMenuOpen(false)} />
+          {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+        </div>
       </div>
     </header>
   );

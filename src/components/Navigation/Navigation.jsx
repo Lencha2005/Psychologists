@@ -1,72 +1,86 @@
-// import { useSelector } from 'react-redux';
-// import { selectIsLoggedIn } from '../../redux/auth/selectors';
-// import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import { NavLink, useLocation } from 'react-router-dom';
 
-// import clsx from 'clsx';
-// import css from './Navigation.module.css'
-
-// const buildCssClasses = ({ isActive }) =>
-//     clsx(css.link, isActive && css.active);
-
-
-// const Navigation = ({onClose}) => {
-//     const isLoggedIn = useSelector(selectIsLoggedIn);
-//   return (
-//     <nav className={css.nav}>
-//         <NavLink className={buildCssClasses} to='/' onClick={onClose}>Home</NavLink>
-//         <NavLink className={buildCssClasses} to='/psychologists' onClick={onClose}>Psychologists</NavLink>
-//         {isLoggedIn && <NavLink className={buildCssClasses} to='/favorites' onClick={onClose}>Favorites</NavLink>}
-//     </nav>
-//   )
-// }
-
-// export default Navigation
-
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import { NavLink } from "react-router-dom";
-import clsx from "clsx";
-
-import css from "./Navigation.module.css";
+import clsx from 'clsx';
+import css from './Navigation.module.css';
 
 const buildCssClasses = ({ isActive }) =>
   clsx(css.link, isActive && css.active);
 
-const Navigation = () => {
+const Navigation = ({ onClose }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [isOpen, setIsOpen] = useState(false); // стан відкриття списку
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth < 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
+      if (window.innerWidth >= 1200) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const onCloseModal = () => {
+    setIsOpen(false);
+    onClose();
+  };
+
+  const getPageName = () => {
+    if (location.pathname === '/') return 'Home';
+    if (location.pathname === '/psychologists') return 'Psychologists';
+    if (location.pathname === '/favorites') return 'Favorites';
+    return 'Menu';
+  };
 
   return (
     <nav className={css.nav}>
-      {/* Кнопка для відкриття меню на планшеті */}
-      <button
-        className={css.menuButton}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        Меню
-      </button>
+      {isTablet && (
+        <button
+          className={css.menuButton}
+          onClick={() => setIsOpen(prev => !prev)}
+        >
+          {getPageName()}
+        </button>
+      )}
 
-      {/* Список навігації */}
-      <ul className={clsx(css.menuList, isOpen && css.open)}>
-        <li>
-          <NavLink className={buildCssClasses} to="/" onClick={() => setIsOpen(false)} >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className={buildCssClasses} to="/psychologists" onClick={() => setIsOpen(false)}>
-            Psychologists
-          </NavLink>
-        </li>
-        {isLoggedIn && (
+      {(isTablet && isOpen) || !isTablet ? (
+        <ul className={clsx(css.menuList, isOpen && css.open)}>
           <li>
-            <NavLink className={buildCssClasses} to="/favorites" onClick={() => setIsOpen(false)}>
-              Favorites
+            <NavLink className={buildCssClasses} to="/" onClick={onCloseModal}>
+              Home
             </NavLink>
           </li>
-        )}
-      </ul>
+          <li>
+            <NavLink
+              className={buildCssClasses}
+              to="/psychologists"
+              onClick={onCloseModal}
+            >
+              Psychologists
+            </NavLink>
+          </li>
+          {isLoggedIn && (
+            <li>
+              <NavLink
+                className={buildCssClasses}
+                to="/favorites"
+                onClick={onCloseModal}
+              >
+                Favorites
+              </NavLink>
+            </li>
+          )}
+        </ul>
+      ) : null}
     </nav>
   );
 };

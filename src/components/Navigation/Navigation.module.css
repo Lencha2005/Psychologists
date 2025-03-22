@@ -1,22 +1,17 @@
-/* .nav {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  width: 297px;
+.nav {
+  position: relative;
 }
 
-@media screen and (max-width: 767px) {
-    .nav {
-
-        flex-direction: column;
-        gap: 4px;
-      }
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
 }
 
 .link {
-    position: relative;
-    padding: 4px 0;
-    transition: color var(--primary-transition);
+  position: relative;
+  transition: color var(--primary-transition);
 }
 
 .link:hover {
@@ -24,65 +19,47 @@
 }
 
 @media screen and (min-width: 768px) {
-    .active::after {
-        content: '';
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: var(--color-primary-green);
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-}
- */
-
-
- .nav {
-    position: relative;
-  }
-  
-  /* Кнопка "Меню" (видима тільки на планшетах) */
   .menuButton {
-    display: none;
-    background: none;
-    border: 1px solid var(--color-primary-black);
-    padding: 8px 12px;
-    border-radius: 5px;
+    background: transparent;
+    border: none;
+    padding: 10px 15px;
     cursor: pointer;
+    width: 133px;
+    transition: color var(--primary-transition);
   }
-  
-  /* Меню за замовчуванням приховане */
+
+  .menuButton:hover {
+    color: var(--color-secondary-green);
+  }
+
   .menuList {
-    display: flex;
-    gap: 20px;
-    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 11%;
+    z-index: 999;
+    background: transparent;
   }
-  
-  /* Для планшетів робимо меню списком */
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    .menuButton {
-      display: block;
-    }
-  
-    .menuList {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      width: 150px;
-      background-color: white;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 10px;
-      display: none; /* Ховаємо за замовчуванням */
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    /* Коли isOpen === true, меню стає видимим */
-    .menuList.open {
-      display: flex;
-    }
+}
+
+@media (min-width: 1200px) {
+  .menuList {
+    position: static;
+    flex-direction: row;
+    gap: 40px;
   }
+}
+
+@media screen and (min-width: 1200px) {
+  .active::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-primary-green);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
