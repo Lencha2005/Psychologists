@@ -1,6 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchPsychologists } from './operations';
 
+const handlePending = state => {
+  state.isLoading = true;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
 const INITIAL_STATE = {
   items: [],
   favorites: [],
@@ -17,13 +27,15 @@ const psychologistSlice = createSlice({
     toggleFavorite(state, action) {},
   },
   extraReducers: builder =>
-    builder.addCase(fetchPsychologists.fulfilled, (state, action) => {
-      state.isLoading = false;
-      console.log('psychologist:', action.payload);
-      state.items = action.payload;
-      state.error = null;
-    }),
+    builder
+      .addCase(fetchPsychologists.pending, handlePending)
+      .addCase(fetchPsychologists.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchPsychologists.rejected, handleRejected),
 });
 
-export const psychologistReducer = psychologistSlice.reducer;
+export const psychologistsReducer = psychologistSlice.reducer;
 export const { toggleFavorite } = psychologistSlice.actions;

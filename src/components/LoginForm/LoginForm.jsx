@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { loginFormSchema, registrationFormSchema } from '../../schemas/schemas';
+import { loginFormSchema } from '../../schemas/schemas';
 import { selectIsLoginModalOpen } from '../../redux/modal/selectors';
 import { closeLoginModal } from '../../redux/modal/slice';
 import { loginUser } from '../../redux/auth/operations';
@@ -18,9 +18,6 @@ const initialValues = {
 const LoginForm = () => {
   const dispatch = useDispatch();
   const isOpenLodIn = useSelector(selectIsLoginModalOpen);
-
-  const user = useSelector(state => state.auth.user);
-console.log("Redux user:", user);
 
   const [showPassword, setShowPassword] = useState(false);
 

@@ -1,5 +1,6 @@
-export const selectorPsychologists = state => state.psychologysts.items;
-export const selectorFavorites = state => state.psychologysts.favorites;
-export const selectorPage = state => state.psychologysts.page;
-export const selectorTotalPages = state => state.psychologysts.totalPages;
-export const selectorError = state => state.psychologysts.error;
+export const selectPsychologists = state => state.psychologists.items;
+export const selectFavorites = state => state.psychologists.favorites;
+export const selectPage = state => state.psychologists.page;
+export const selectTotalPages = state => state.psychologists.totalPages;
+export const selectPsychologistIsLoading = state => state.psychologists.isLoading;
+export const selectError = state => state.psychologists.error;

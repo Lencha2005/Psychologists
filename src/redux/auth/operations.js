@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { auth } from '../../firebase/firebaseConfig';
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -33,6 +34,21 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
+  }
+);
+
+export const currentUser = createAsyncThunk(
+  'auth/checkAuth',
+  async (_, { rejectWithValue }) => {
+    return new Promise(resolve => {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          resolve({ name: user.displayName || 'User', email: user.email });
+        } else {
+          resolve(null);
+        }
+      });
+    });
   }
 );
 

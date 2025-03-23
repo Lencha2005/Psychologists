@@ -2,8 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy, useEffect } from 'react';
 import '../../firebase/firebaseConfig';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsRefreshing, selectUserIsLoading } from '../../redux/auth/selectors';
+import { selectPsychologistIsLoading } from '../../redux/psychologists/selectors';
 import Layout from '../ui/Layout/Layout';
-import { useSelector } from 'react-redux';
+import Notification from '../ui/Notification/Notification';
+import Loader from '../ui/Loader/Loader';
+import { currentUser } from '../../redux/auth/operations';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const PsychologistsPage = lazy(() =>
@@ -17,14 +22,28 @@ const NotFoundPage = lazy(() =>
 );
 
 function App() {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoadingUser = useSelector(selectUserIsLoading);
+  const isLoadingPsychologist = useSelector(selectPsychologistIsLoading);
   const theme = useSelector(state => state.theme.theme);
+
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
+  if (isRefreshing) {
+    return <Loader/>;
+  }
+
   return (
     <Layout>
+      {(isLoadingUser || isLoadingPsychologist) && <Loader/>}
+      <Notification/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/psychologists" element={<PsychologistsPage />} />

@@ -1,0 +1,73 @@
+.wrappper {
+  position: relative;
+  background-color: var(--color-primary-white);
+  padding: 24px;
+}
+
+.wrapperRating {
+  position: absolute;
+  top: 24px;
+  right: 78px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.iconStar {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.green {
+  color: #38cd3e;
+}
+
+.iconHeart {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 26px;
+  height: 26px;
+  stroke: black;
+  fill: transparent;
+}
+
+.imgWrap {
+  position: relative;
+  border-radius: 30px;
+  border: 2px solid rgba(84, 190, 150, 0.2);
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+}
+
+.img {
+  border-radius: 15px;
+  width: 96px;
+  height: 96px;
+}
+
+.wrappIconCircle {
+  position: absolute;
+  top: 9px;
+  right: 14px;
+  background-color: #fbfbfb;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconCircle {
+  width: 10px;
+  height: 10px;
+  fill: #38CD3E;
+}

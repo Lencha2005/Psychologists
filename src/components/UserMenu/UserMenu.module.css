@@ -23,7 +23,7 @@
     align-items: center;
     width: 40px;
     height: 40px;
-    background-color: var(--color-primary-green);
+    background-color: var(--button-bg-color);
   }
 
   .svg {

@@ -8,7 +8,6 @@ export const fetchPsychologists = createAsyncThunk(
     try {
       const snapshot = await get(ref(db, "psychologists"));
       if (snapshot.exists()) {
-        console.log("Psychologists Data:", snapshot.val());
         return Object.values(snapshot.val());; // Отримуємо масив психологів
       } else {
         return [];

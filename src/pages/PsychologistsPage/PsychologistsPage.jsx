@@ -1,8 +1,11 @@
-import React from 'react'
+import css from './PsychologistsPage.module.css'
+import PsychologistsList from '../../components/PsychologistsList/PsychologistsList'
 
 const PsychologistsPage = () => {
   return (
-    <div>PsychologistsPage</div>
+    <div className={css.page}>
+      <PsychologistsList/>
+    </div>
   )
 }
 
