@@ -8,6 +8,7 @@ import Button from '../ui/Button/Button';
 import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import sprite from '../../../public/sprite.svg';
 import css from './RegistrationForm.module.css';
+import { registerUser } from '../../redux/auth/operations';
 
 const initialValues = {
   name: '',
@@ -26,8 +27,10 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    console.log('Submitted values:', values);
+    const result = dispatch(registerUser(values))
+    console.log('result: ', result);
     actions.resetForm();
+    dispatch(closeRegistrationModal());
   };
 
   return (

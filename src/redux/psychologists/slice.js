@@ -16,13 +16,14 @@ const psychologistSlice = createSlice({
   reducers: {
     toggleFavorite(state, action) {},
   },
-  extraReducers: builder => builder
-  .addCase(fetchPsychologists.fulfilled, (state, action) => {
-    state.isLoading = false;
-    state.items = action.payload;
-    state.error = null;
-  })
+  extraReducers: builder =>
+    builder.addCase(fetchPsychologists.fulfilled, (state, action) => {
+      state.isLoading = false;
+      console.log('psychologist:', action.payload);
+      state.items = action.payload;
+      state.error = null;
+    }),
 });
 
 export const psychologistReducer = psychologistSlice.reducer;
-export const {toggleFavorite} = psychologistSlice.actions;
+export const { toggleFavorite } = psychologistSlice.actions;

@@ -12,12 +12,19 @@
   padding: 24px 32px;
   margin: 0 auto;
 }
+@media screen and (max-width: 474px) {
+  .wrapper {
+    min-width: 320px;
+  }
+}
 
 .btn {
   display: block;
   background: none;
   border: none;
   cursor: pointer;
+  width: 28px;
+  height: 28px;
 }
 
 .iconBtn {

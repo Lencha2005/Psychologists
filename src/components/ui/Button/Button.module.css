@@ -18,6 +18,7 @@
 .buttonLog:hover,
 .buttonLog:focus {
   border-color: var(--color-primary-black);
+  outline: transparent;
 }
 
 /* Themes */

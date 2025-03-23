@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { registrationFormSchema } from '../../schemas/schemas';
+import { loginFormSchema, registrationFormSchema } from '../../schemas/schemas';
 import { selectIsLoginModalOpen } from '../../redux/modal/selectors';
 import { closeLoginModal } from '../../redux/modal/slice';
+import { loginUser } from '../../redux/auth/operations';
 import Button from '../ui/Button/Button';
 import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import sprite from '../../../public/sprite.svg';
 import css from './LoginForm.module.css';
 
 const initialValues = {
-  name: '',
   email: '',
   password: '',
 };
@@ -19,6 +19,9 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const isOpenLodIn = useSelector(selectIsLoginModalOpen);
 
+  const user = useSelector(state => state.auth.user);
+console.log("Redux user:", user);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -26,7 +29,8 @@ const LoginForm = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    console.log('Submitted values:', values);
+    dispatch(loginUser(values));
+    dispatch(closeLoginModal());
     actions.resetForm();
   };
 
@@ -54,7 +58,7 @@ const LoginForm = () => {
       </p>
       <Formik
         initialValues={initialValues}
-        validationSchema={registrationFormSchema}
+        validationSchema={loginFormSchema}
         onSubmit={handleSubmit}
       >
         <Form className={css.form}>

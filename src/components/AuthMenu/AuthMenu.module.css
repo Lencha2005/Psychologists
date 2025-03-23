@@ -6,20 +6,18 @@
 @media screen and (max-width: 767px) {
   .wrap {
     flex-direction: column;
-    gap: 8px;
   }
 }
 
 .btnLogin {
   padding: 14px 39px;
   width: 124px;
-  transition: border-color var(--primary-transition);
 }
 
-.btnLogin:hover,
+/* .btnLogin:hover,
 .btnLogin:focus {
   outline: transparent;
-}
+} */
 
 .btnRegistration {
   padding: 14px 40px;

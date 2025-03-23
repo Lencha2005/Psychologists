@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectIsLoginModalOpen,
-  selectIsRegistrationModalOpen,
-} from '../../redux/modal/selectors';
+// import {
+//   selectIsLoginModalOpen,
+//   selectIsRegistrationModalOpen,
+// } from '../../redux/modal/selectors';
 import Button from '../../components/ui/Button/Button';
 import Section from '../../components/ui/Section/Section';
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import LoginForm from '../../components/LoginForm/LoginForm';
+// import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+// import LoginForm from '../../components/LoginForm/LoginForm';
 import sprite from '../../../public/sprite.svg';
 import img1 from '../../img/image.png';
 import img2 from '../../img/image@2x.png';
 import css from './HomePage.module.css';
 
 const HomePage = () => {
-  const dispatch = useDispatch();
-  const isRegistrationModalOpen = useSelector(selectIsRegistrationModalOpen);
-  const isLoginModalOpen = useSelector(selectIsLoginModalOpen);
+  // const dispatch = useDispatch();
+  // const isRegistrationModalOpen = useSelector(selectIsRegistrationModalOpen);
+  // const isLoginModalOpen = useSelector(selectIsLoginModalOpen);
 
   return (
     // <Section className={css.section}>
@@ -58,8 +58,8 @@ const HomePage = () => {
           <use href={`${sprite}#icon-people`}></use>
         </svg>
       </div>
-      {isRegistrationModalOpen && <RegistrationForm />}
-      {isLoginModalOpen && <LoginForm />}
+      {/* {isRegistrationModalOpen && <RegistrationForm />}
+      {isLoginModalOpen && <LoginForm />} */}
     </div>
     // </Section>
   );
