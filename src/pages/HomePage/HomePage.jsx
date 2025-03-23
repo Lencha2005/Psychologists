@@ -1,28 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   selectIsLoginModalOpen,
-//   selectIsRegistrationModalOpen,
-// } from '../../redux/modal/selectors';
 import Button from '../../components/ui/Button/Button';
-import Section from '../../components/ui/Section/Section';
-// import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-// import LoginForm from '../../components/LoginForm/LoginForm';
 import sprite from '../../../public/sprite.svg';
 import img1 from '../../img/image.png';
 import img2 from '../../img/image@2x.png';
 import css from './HomePage.module.css';
 
 const HomePage = () => {
-  // const dispatch = useDispatch();
-  // const isRegistrationModalOpen = useSelector(selectIsRegistrationModalOpen);
-  // const isLoginModalOpen = useSelector(selectIsLoginModalOpen);
-
   return (
-    // <Section className={css.section}>
     <div className={css.wrapper}>
       <div className={css.titleWrapper}>
         <h1 className={css.title}>
-          The road to the <span className={css.greenText}>depths</span> of the
+          The road to the <span className={css.textPart}>depths</span> of the
           human soul
         </h1>
         <p className={css.text}>
@@ -58,10 +45,7 @@ const HomePage = () => {
           <use href={`${sprite}#icon-people`}></use>
         </svg>
       </div>
-      {/* {isRegistrationModalOpen && <RegistrationForm />}
-      {isLoginModalOpen && <LoginForm />} */}
     </div>
-    // </Section>
   );
 };
 

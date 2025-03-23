@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, logoutUser, registerUser } from './operations';
 
-const handlePending = (state) => {
+const handlePending = state => {
   state.isLoading = true;
   state.error = null;
 };
@@ -25,29 +25,28 @@ const INITIAL_STATE = {
 const authSlice = createSlice({
   name: 'auth',
   initialState: INITIAL_STATE,
-  extraReducers: builder => builder
-  .addCase(registerUser.pending, handlePending)
-  .addCase(registerUser.fulfilled, (state, action) => {
-    state.isLoading = false;
-    state.user = action.payload;
-    console.log('state.user: ', state.user);
-    state.isLoggedIn = true;
-  })
-  .addCase(registerUser.rejected, handleRejected)
-  .addCase(loginUser.pending, handlePending)
-  .addCase(loginUser.fulfilled, (state, action) => {
-    state.isLoading = false;
-    console.log("Login payload:", action.payload);
-    state.user = action.payload;
-    state.isLoggedIn = true;
-  })
-  .addCase(loginUser.rejected, handleRejected)
-  .addCase(logoutUser.pending, handlePending)
-  .addCase(logoutUser.fulfilled, (state) => {
-    state.user = { name: null, email: null };
-    state.isLoggedIn = false;
-  })
-  .addCase(logoutUser.rejected, handleRejected)
+  extraReducers: builder =>
+    builder
+      .addCase(registerUser.pending, handlePending)
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      })
+      .addCase(registerUser.rejected, handleRejected)
+      .addCase(loginUser.pending, handlePending)
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      })
+      .addCase(loginUser.rejected, handleRejected)
+      .addCase(logoutUser.pending, handlePending)
+      .addCase(logoutUser.fulfilled, state => {
+        state.user = { name: null, email: null };
+        state.isLoggedIn = false;
+      })
+      .addCase(logoutUser.rejected, handleRejected),
 });
 
 export const authReducer = authSlice.reducer;

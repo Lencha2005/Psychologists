@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
-  background-color: rgba(25, 26, 21, 0.6);
+  background-color: var(--bg-overlay-dark);
 }
 
 .modal {
@@ -34,7 +34,13 @@
 .iconClose {
   width: 32px;
   height: 32px;
-  stroke: var(--color-primary-black);
+  stroke: var(--color-dark);
+  transition: stroke var(--primary-transition);
+}
+
+.iconClose:hover,
+.iconClose:hover {
+  stroke: var(--button-bg-color-hover);
 }
 
 .title {
@@ -46,7 +52,7 @@
 }
 
 .text {
-  color: rgba(25, 26, 21, 0.5);
+  color: var(--bg-overlay-dark);
   margin-bottom: 40px;
 }
 
@@ -60,7 +66,7 @@
 }
 
 .input {
-  border: 1px solid rgba(25, 26, 21, 0.1);
+  border: 1px solid var(--bg-overlay-dark);
   border-radius: 12px;
   padding: 16px 18px;
   width: 100%;
@@ -70,7 +76,7 @@
 
 .input:hover,
 .input:focus {
-  border-color: var(--color-secondary-green);
+  border-color: var(--button-bg-color-hover);
   outline: transparent;
 }
 
@@ -92,7 +98,7 @@
   width: 20px;
   height: 20px;
   fill: transparent;
-  stroke: var(--color-primary-black);
+  stroke: var(--color-dark);
 }
 
 .btnSignUp {

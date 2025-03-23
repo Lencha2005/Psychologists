@@ -11,7 +11,7 @@ const Button = ({
 }) => {
   const buttonStyle = clsx(
     css.button,
-    variant === 'default' && css.buttonGreen,
+    variant === 'default' && css.buttonDefault,
     variant === 'log' && css.buttonLog,
     // variant === "green" && css.buttonGreen,
     // variant === "blue" && css.buttonBlue,

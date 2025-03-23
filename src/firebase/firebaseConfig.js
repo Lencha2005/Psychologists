@@ -24,18 +24,3 @@ console.log('auth: ', auth);
 export const db = getDatabase(app);
 console.log('db: ', db);
 
-const test = async () => {
-    try {
-      console.log('testRequest' );
-      const snapshot = await get(ref(db, "psychologists"));
-      if (snapshot.exists()) {
-        console.log("Psychologists Data:", Object.values(snapshot.val()));
-      } else {
-        console.log("not dara");
-      }
-    } catch (error) {
-      console.log("error");
-    }
-  
-  };
-  test();

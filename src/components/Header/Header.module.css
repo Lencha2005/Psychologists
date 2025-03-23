@@ -1,5 +1,5 @@
 .header {
-  border-bottom: 1px solid rgba(25, 26, 21, 0.1);
+  border-bottom: 1px solid var(--bg-overlay-dark);
 }
 
 .wrapper {
@@ -30,7 +30,7 @@
 .iconBtn {
   width: 28px;
   height: 28px;
-  stroke: var(--color-primary-black);
+  stroke: var(--color-dark);
 }
 
 .menu {
@@ -85,7 +85,7 @@
     min-width: 1200px;
     gap: 130px;
   }
-  
+
   .menu {
     flex-direction: row;
     justify-content: space-between;

@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.btnWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.green,
+.blue,
+.orange {
+  width: 12px;
+  height: 12px;
+  transition: width var(--primary-transition);
+}
+
+.green {
+  fill: #54be96;
+}
+
+.blue {
+  fill: #3470ff;
+}
+
+.orange {
+  fill: #fc832c;
+}

@@ -1,22 +1,35 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setTheme } from "../redux/theme/themeSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { setTheme } from '../../redux/theme/slice';
+import sprite from '../../../public/sprite.svg';
+import css from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = () => {
-  const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
-  const handleThemeChange = (event) => {
-    dispatch(setTheme(event.target.value));
+  const handleThemeChange = newTheme => {
+    dispatch(setTheme(newTheme));
   };
 
   return (
-    <div>
-      <p>Theme: {theme}</p>
-      <select value={theme} onChange={handleThemeChange}>
-        <option value="green">Green</option>
-        <option value="blue">Blue</option>
-        <option value="orange">Orange</option>
-      </select>
+    <div className={css.wrapper}>
+      <p>Theme</p>
+      <div className={css.btnWrap}>
+        <button className={css.btn} onClick={() => handleThemeChange('green')}>
+          <svg className={css.green}>
+            <use href={`${sprite}#icon-circle`}></use>
+          </svg>
+        </button>
+        <button className={css.btn} onClick={() => handleThemeChange('blue')}>
+          <svg className={css.blue}>
+            <use href={`${sprite}#icon-circle`}></use>
+          </svg>
+        </button>
+        <button className={css.btn} onClick={() => handleThemeChange('orange')}>
+          <svg className={css.orange}>
+            <use href={`${sprite}#icon-circle`}></use>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

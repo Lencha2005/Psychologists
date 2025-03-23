@@ -14,20 +14,8 @@
   width: 124px;
 }
 
-/* .btnLogin:hover,
-.btnLogin:focus {
-  outline: transparent;
-} */
-
 .btnRegistration {
   padding: 14px 40px;
-  transition: background-color var(--primary-transition);
-}
-
-.btnRegistration:hover,
-.btnRegistration:focus {
-  background-color: var(--color-secondary-green);
-  outline: transparent;
 }
 
 @media screen and (min-width: 768px) {

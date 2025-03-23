@@ -9,45 +9,25 @@
 }
 
 .buttonLog {
-  border: 1px solid rgba(25, 26, 21, 0.2);
+  border: 1px solid var(--bg-overlay-dark);
   background-color: transparent;
   color: var(--color-primary-black);
-  transition: border-color --primary-transition;
+  transition: border-color var(--primary-transition);
 }
 
 .buttonLog:hover,
 .buttonLog:focus {
-  border-color: var(--color-primary-black);
+  border-color: var(--color-dark);
   outline: transparent;
 }
 
-/* Themes */
-.buttonGreen {
-  background-color: var(--color-primary-green);
+.buttonDefault {
+  background-color: var(--button-bg-color);
   color: var(--color-primary-white);
 }
 
-.buttonGreen:hover,
-.buttonGreen:focus {
-  background-color: var(--color-secondary-green);
-}
-
-.button-blue {
-  background-color: #3470ff;
-  color: var(--color-primary-white);
-}
-
-.button-blue:hover,
-.button-blue:focus {
-  background-color: #255ee8;
-}
-
-.button-orange {
-  background-color: #fc832c;
-  color: var(--color-primary-white);
-}
-
-.button-orange:hover,
-.button-orange:focus {
-  background-color: #f37113;
+.buttonDefault:hover,
+.buttonDefault:focus {
+  background-color: var(--button-bg-color-hover);
+  outline: transparent;
 }

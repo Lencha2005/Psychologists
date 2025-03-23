@@ -27,7 +27,7 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    const result = dispatch(registerUser(values))
+    const result = dispatch(registerUser(values));
     console.log('result: ', result);
     actions.resetForm();
     dispatch(closeRegistrationModal());

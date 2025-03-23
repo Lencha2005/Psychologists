@@ -5,6 +5,6 @@
   letter-spacing: -0.02em;
 }
 
-.greenPart {
-  color: var(--color-primary-green);
+.partColor {
+  color: var(--button-bg-color);
 }

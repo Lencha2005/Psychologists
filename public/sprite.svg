@@ -12,8 +12,8 @@
 <symbol id="icon-chevron" viewBox="0 0 32 32">
 <path fill="none" stroke="#fbfbfb" style="stroke: var(--color1, #fbfbfb)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.2" d="M8 20l8-8 8 8"></path>
 </symbol>
-<symbol id="icon-circle-green" viewBox="0 0 32 32">
-<path fill="#54be96" style="fill: var(--color2, #54be96)" d="M30.222 16c0 7.855-6.367 14.222-14.222 14.222s-14.222-6.367-14.222-14.222c0-7.855 6.367-14.222 14.222-14.222s14.222 6.367 14.222 14.222z"></path>
+<symbol id="icon-circle" viewBox="0 0 32 32">
+<path d="M30.222 16c0 7.855-6.367 14.222-14.222 14.222s-14.222-6.367-14.222-14.222c0-7.855 6.367-14.222 14.222-14.222s14.222 6.367 14.222 14.222z"></path>
 </symbol>
 <symbol id="icon-clock" viewBox="0 0 32 32">
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.4" d="M16 29.333c7.364 0 13.333-5.969 13.333-13.333s-5.97-13.333-13.333-13.333c-7.364 0-13.333 5.97-13.333 13.333s5.97 13.333 13.333 13.333z"></path>

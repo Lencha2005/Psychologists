@@ -9,21 +9,26 @@ const UserMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-const onLogout = () => {
-  dispatch(logoutUser())
-}
+  const onLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <div className={css.wrap}>
       <div className={css.userWrapp}>
         <div className={css.svgWrapp}>
-        <svg className={css.svg}>
-          <use href={`${sprite}#icon-user`}></use>
-        </svg>
+          <svg className={css.svg}>
+            <use href={`${sprite}#icon-user`}></use>
+          </svg>
         </div>
         <p className={css.text}>{user.name}</p>
       </div>
-      <Button variant="log" type="bytton" className={css.btnLogout} onClick={onLogout}>
+      <Button
+        variant="log"
+        type="bytton"
+        className={css.btnLogout}
+        onClick={onLogout}
+      >
         Log out
       </Button>
     </div>

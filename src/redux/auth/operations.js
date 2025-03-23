@@ -29,10 +29,6 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-
-      console.log("Успішний вхід у Firebase:", user);
-      console.log("Ім'я користувача у Firebase:", user.displayName);
-
       return { name: user.displayName || 'User', email: user.email };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -50,15 +46,3 @@ export const logoutUser = createAsyncThunk(
     }
   }
 );
-
-
-// const testLogin = async () => {
-//     try {
-//       const { user } = await signInWithEmailAndPassword(auth, "dad@mail.com", "password123");
-//       console.log("Успішний вхід:", user);
-//     } catch (error) {
-//       console.error("Помилка входу:", error.code, error.message);
-//     }
-//   };
-  
-//   testLogin();
