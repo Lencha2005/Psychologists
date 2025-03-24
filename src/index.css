@@ -21,7 +21,7 @@
   --button-bg-color-hover: #36a379;
   --bg-icon-color1: #4535af;
   --bg-icon-color2: #fbc75e;
-  --color-background-green: rgba(84, 190, 150, 0.2);
+  --color-background-avatar: rgba(84, 190, 150, 0.2);
   --bg-image: image-set(
     url('/src/img/bg-green.png') 1x,
     url('/src/img/bg-green@2x.png') 2x
@@ -34,7 +34,7 @@
   --button-bg-color-hover: #255ee8;
   --bg-icon-color1: #54be96;
   --bg-icon-color2: #fbc75e;
-  --color-background-green: rgba(52, 112, 255, 0.2);
+  --color-background-avatar: rgba(52, 112, 255, 0.2);
   --bg-image: image-set(
     url('/src/img/bg-blue.png') 1x,
     url('/src/img/bg-blue@2x.png') 2x
@@ -47,7 +47,7 @@
   --button-bg-color-hover: #f37113;
   --bg-icon-color1: #54be96;
   --bg-icon-color2: #fbc75e;
-  --color-background-green: rgba(252, 131, 44, 0.2);
+  --color-background-avatar: rgba(252, 131, 44, 0.2);
   --bg-image: image-set(
     url('/src/img/bg-orange.png') 1x,
     url('/src/img/bg-orange@2x.png') 2x
@@ -79,7 +79,7 @@ p {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 

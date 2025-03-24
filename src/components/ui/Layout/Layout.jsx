@@ -1,28 +1,35 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../../Header/Header';
-import Container from '../Container/Container';
-import Loader from '../Loader/Loader';
 import { Suspense } from 'react';
-
-import css from './Layout.module.css';
 import { useSelector } from 'react-redux';
 import {
   selectIsLoginModalOpen,
   selectIsRegistrationModalOpen,
 } from '../../../redux/modal/selectors';
+import Header from '../../Header/Header';
+import Container from '../Container/Container';
+import Loader from '../Loader/Loader';
 import RegistrationForm from '../../RegistrationForm/RegistrationForm';
 import LoginForm from '../../LoginForm/LoginForm';
+import css from './Layout.module.css';
 
 const Layout = ({ children }) => {
   const location = useLocation();
   const isRegistrationModalOpen = useSelector(selectIsRegistrationModalOpen);
   const isLoginModalOpen = useSelector(selectIsLoginModalOpen);
 
-  const isHome = location.pathname === '/';
+  const getBackgroundClass = () => {
+    if (
+      location.pathname === '/psychologists' ||
+      location.pathname === '/favorites'
+    )
+      return css.psychologistsBg;
+    return css.homeBg;
+  };
+
   return (
-    <>
+    <div className={`${css.layoutWrapper} ${getBackgroundClass()}`}>
       <Header />
-      <main className={isHome ? css.background : ''}>
+      <main>
         <Container>
           <Suspense fallback={<Loader />}>{children}</Suspense>
           <Outlet />
@@ -30,7 +37,7 @@ const Layout = ({ children }) => {
       </main>
       {isRegistrationModalOpen && <RegistrationForm />}
       {isLoginModalOpen && <LoginForm />}
-    </>
+    </div>
   );
 };
 

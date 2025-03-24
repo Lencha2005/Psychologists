@@ -1,15 +1,17 @@
-.wrappper {
+.wrappperCard {
   position: relative;
   background-color: var(--color-primary-white);
-  padding: 24px;
+  padding: 46px 20px 20px 20px;
+  border-radius: 24px;
 }
 
 .wrapperRating {
   position: absolute;
-  top: 24px;
-  right: 78px;
+  top: 20px;
+  right: 40px;
+  font-size: 12px;
   display: flex;
-  gap: 32px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -19,38 +21,71 @@
 }
 
 .iconStar {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
 }
 
 .green {
   color: #38cd3e;
 }
 
-.iconHeart {
+.btnHeart {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 26px;
-  height: 26px;
-  stroke: black;
+  top: 20px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.iconHeart,
+.iconHeartActive {
+  width: 22px;
+  height: 22px;
+}
+.iconHeart {
+  stroke: var(--color-dark);
   fill: transparent;
 }
 
+.iconHeartActive {
+  stroke: var(--button-bg-color);
+  fill: var(--button-bg-color);
+}
+
+.wrapperDescription {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  column-gap: 14px;
+  row-gap: 14px;
+  grid-template-areas:
+    'img name'
+    'list list'
+    'about about'
+    'btn .'
+    'detail detail';
+  align-items: center;
+  justify-items: start;
+}
+
 .imgWrap {
+  grid-area: img;
   position: relative;
   border-radius: 30px;
   border: 2px solid rgba(84, 190, 150, 0.2);
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   padding: 10px;
 }
 
 .img {
   border-radius: 15px;
-  width: 96px;
-  height: 96px;
+  width: 76px;
+  height: 76px;
 }
 
 .wrappIconCircle {
@@ -58,8 +93,8 @@
   top: 9px;
   right: 14px;
   background-color: #fbfbfb;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -67,7 +102,159 @@
 }
 
 .iconCircle {
-  width: 10px;
-  height: 10px;
-  fill: #38CD3E;
+  width: 8px;
+  height: 8px;
+  fill: #38cd3e;
+}
+
+.wrapperAbout {
+  grid-area: name;
+}
+
+.profession {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.list {
+  grid-area: list;
+}
+
+.item {
+  font-size: 13px;
+  display: inline-block;
+  border-radius: 24px;
+  padding: 8px 14px;
+  background: var(--color-secondary-white);
+  color: #8a8a89;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.span {
+  color: var(--color-dark);
+}
+
+.textAbout {
+  grid-area: about;
+  font-size: 14px;
+}
+
+.btnReadMore {
+  grid-area: btn;
+  background: transparent;
+  border: transparent;
+  padding: 0;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
+.details {
+  grid-area: detail;
+}
+
+@media screen and (min-width: 475px) {
+  .wrapperRating {
+    font-size: 14px;
+  }
+
+  .wrapperDescription {
+    grid-template-columns: 120px 1fr;
+    column-gap: 24px;
+    row-gap: 24px;
+  }
+
+  .imgWrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .img {
+    width: 96px;
+    height: 96px;
+  }
+
+  .wrappIconCircle {
+    width: 14px;
+    height: 14px;
+  }
+
+  .iconCircle {
+    width: 10px;
+    height: 10px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .wrappperCard {
+    padding: 24px;
+  }
+  .wrapperRating {
+    top: 24px;
+    right: 78px;
+    font-size: 16px;
+    gap: 32px;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .iconStar {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
+
+  .btnHeart {
+    top: 24px;
+    right: 24px;
+    width: 26px;
+    height: 26px;
+  }
+  .iconHeart,
+  .iconHeartActive {
+    width: 26px;
+    height: 26px;
+  }
+
+  .wrapperDescription {
+    grid-template-areas:
+      'img name'
+      'img list'
+      '. about'
+      '. btn'
+      '. detail';
+    align-items: start;
+  }
+
+  .wrapperDescription > .btnReadMore {
+    margin-top: -10px;
+  }
+
+  .item {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin-right: 4px;
+  }
+
+  .textAbout {
+    font-size: 16px;
+  }
 }

@@ -3,7 +3,7 @@ import css from './Button.module.css';
 
 const Button = ({
   variant = 'default',
-  width = '100%',
+  // width = '100%',
   className,
   type = 'button',
   onClick,
@@ -22,7 +22,7 @@ const Button = ({
     <button
       type={type}
       className={buttonStyle}
-      style={{ width }}
+      // style={{ width }}
       onClick={onClick}
     >
       {children}

@@ -1,44 +1,49 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPsychologists } from '../../redux/psychologists/selectors';
+import {
+  selectFavorites,
+  selectPsychologists,
+} from '../../redux/psychologists/selectors';
 import { fetchPsychologists } from '../../redux/psychologists/operations';
-
-import css from './PsychologistsList.module.css';
 import PsychologistCard from '../PsychologistCard/PsychologistCard';
+import css from './PsychologistsList.module.css';
 
 const PsychologistsList = () => {
   const dispatch = useDispatch();
   const psychologists = useSelector(selectPsychologists);
+  console.log('psychologists: ', psychologists);
+  const favorites = useSelector(selectFavorites);
+  console.log('favorites: ', favorites);
 
-  
   useEffect(() => {
     dispatch(fetchPsychologists());
   }, [dispatch]);
-  
+
   useEffect(() => {
     console.log('Психологи з Redux:', psychologists);
   }, [psychologists]);
-  // console.log('psychologists: ', psychologists);
 
-  // const key = psychologists.map(item => {
-  //   const license = Number.parseInt(item.license.match(/\d+/));
-  //   console.log('license: ', license);
-    
-  // })
+  useEffect(() => {
+    console.log("Викликаємо fetchPsychologists...");
+    dispatch(fetchPsychologists({ filterType: "A-Z" }));
+  }, [dispatch]);
 
+  return (
+    <div>
 
-
-  return <div className={css.wrapper}> 
-{Array.isArray(psychologists) && psychologists.length > 0 && (
-  psychologists.map(item => {
-    return (
-      <li key ={item.name}>
-        <PsychologistCard psychologist ={item}/>
-      </li>
-    )
-  })
-)}
-  </div>;
+    <ul className={css.list}>
+      {Array.isArray(psychologists) &&
+        psychologists.length > 0 &&
+        psychologists.map((item, index) => {
+          return (
+            <li key={`${item.name}-${index}`} className={css.item}>
+              <PsychologistCard psychologist={item} />
+            </li>
+          );
+        })}
+    </ul>
+    </div>
+  );
 };
 
 export default PsychologistsList;

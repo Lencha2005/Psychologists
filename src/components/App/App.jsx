@@ -3,7 +3,10 @@ import { lazy, useEffect } from 'react';
 import '../../firebase/firebaseConfig';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsRefreshing, selectUserIsLoading } from '../../redux/auth/selectors';
+import {
+  selectIsRefreshing,
+  selectUserIsLoading,
+} from '../../redux/auth/selectors';
 import { selectPsychologistIsLoading } from '../../redux/psychologists/selectors';
 import Layout from '../ui/Layout/Layout';
 import Notification from '../ui/Notification/Notification';
@@ -37,13 +40,13 @@ function App() {
   }, [theme]);
 
   if (isRefreshing) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
     <Layout>
-      {(isLoadingUser || isLoadingPsychologist) && <Loader/>}
-      <Notification/>
+      {(isLoadingUser || isLoadingPsychologist) && <Loader />}
+      <Notification />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/psychologists" element={<PsychologistsPage />} />

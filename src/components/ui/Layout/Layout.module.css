@@ -1,3 +1,19 @@
+.layoutWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeBg {
+  background-image: var(--bg-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.psychologistsBg {
+  background: var(--color-secondary-white);
+}
+
 .background {
   background-image: var(--bg-image);
   background-repeat: no-repeat;
