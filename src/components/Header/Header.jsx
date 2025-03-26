@@ -33,7 +33,7 @@ const Header = () => {
     <header className={css.header}>
       <div className={css.wrapper}>
         <Logo />
-        {/* <ThemeSwitcher /> */}
+        <ThemeSwitcher />
 
         {isMobile && (
           <button className={css.btn} onClick={() => setMenuOpen(!menuOpen)}>

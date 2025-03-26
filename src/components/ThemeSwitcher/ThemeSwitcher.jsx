@@ -12,7 +12,7 @@ const ThemeSwitcher = () => {
 
   return (
     <div className={css.wrapper}>
-      <p>Theme</p>
+      {/* <p>Theme</p> */}
       <div className={css.btnWrap}>
         <button className={css.btn} onClick={() => handleThemeChange('green')}>
           <svg className={css.green}>
