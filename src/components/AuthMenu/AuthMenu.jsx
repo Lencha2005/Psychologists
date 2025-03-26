@@ -1,41 +1,38 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { openLoginModal, openRegistrationModal } from '../../redux/modal/slice';
-import {
-  selectIsLoginModalOpen,
-  selectIsRegistrationModalOpen,
-} from '../../redux/modal/selectors';
+import { useState } from 'react';
 import Button from '../ui/Button/Button';
+import LoginForm from '../LoginForm/LoginForm';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 import css from './AuthMenu.module.css';
 
-const AuthMenu = ({ onClose }) => {
-  const dispatch = useDispatch();
-  const isOpenSingUp = useSelector(selectIsRegistrationModalOpen);
-  const isOpenLogIn = useSelector(selectIsLoginModalOpen);
-
-  const openSingUp = () => {
-    if (!isOpenSingUp) {
-      dispatch(openRegistrationModal());
-      onClose();
-    }
-  };
-
-  const openLogIn = () => {
-    if (!isOpenLogIn) dispatch(openLoginModal());
-    onClose();
-  };
+const AuthMenu = () => {
+  const [isOpenSingUp, setIsOpenSingUp] = useState(false);
+  const [isOpenLogIn, setIsOpenLogIn] = useState(false);
 
   return (
     <div className={css.wrap}>
-      <Button variant="log" className={css.btnLogin} onClick={openLogIn}>
+      <Button
+        variant="log"
+        className={css.btnLogin}
+        onClick={() => setIsOpenLogIn(true)}
+      >
         Log In
       </Button>
       <Button
         variant="default"
         className={css.btnRegistration}
-        onClick={openSingUp}
+        onClick={() => setIsOpenSingUp(true)}
       >
         Registration
       </Button>
+      {isOpenLogIn && (
+        <LoginForm isOpen={isOpenLogIn} onClose={() => setIsOpenLogIn(false)} />
+      )}
+      {isOpenSingUp && (
+        <RegistrationForm
+          isOpen={isOpenSingUp}
+          onClose={() => setIsOpenSingUp(false)}
+        />
+      )}
     </div>
   );
 };

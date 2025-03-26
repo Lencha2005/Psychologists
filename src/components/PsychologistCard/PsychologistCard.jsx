@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFavorites } from '../../redux/psychologists/selectors';
-import { toggleFavorite } from '../../redux/psychologists/slice';
+import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
+import { toggleFavorite } from '../../redux/auth/operations';
+import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
 import sprite from '../../../public/sprite.svg';
 import css from './PsychologistCard.module.css';
 
 const PsychologistCard = ({ psychologist }) => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.includes(psychologist.name);
 
   const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const reviews = psychologist.reviews;
 
   const onOpen = () => {
@@ -19,7 +23,15 @@ const PsychologistCard = ({ psychologist }) => {
   };
 
   const handleFavorites = () => {
-    dispatch(toggleFavorite(psychologist.name));
+    if (!isLoggedIn) {
+      setIsModalOpen(true);
+    } else {
+      dispatch(toggleFavorite(psychologist.name));
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const getIconHeartClass = () => {
@@ -40,7 +52,7 @@ const PsychologistCard = ({ psychologist }) => {
           Rating: {psychologist.rating}
         </p>
         <p>
-          Price / 1 hour:{' '}
+          Price / 1 hour:
           <span className={css.green}>{psychologist.price_per_hour}$</span>
         </p>
       </div>
@@ -63,7 +75,16 @@ const PsychologistCard = ({ psychologist }) => {
             </svg>
           </div>
         </div>
-
+        <ModalContainer
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          className={css.modal}
+          overlayClassName={css.overlay}
+        >
+          <p className={css.modalText}>
+            Only registered users can add favorites.
+          </p>
+        </ModalContainer>
         <div className={css.wrapperAbout}>
           <p className={css.profession}>Psychologist</p>
           <p className={css.name}>{psychologist.name}</p>

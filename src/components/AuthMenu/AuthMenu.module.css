@@ -11,17 +11,9 @@
 
 .btnLogin {
   padding: 14px 39px;
-  width: 124px;
 }
 
 .btnRegistration {
   padding: 14px 40px;
 }
 
-@media screen and (min-width: 768px) {
-  .btnLodin {
-    padding: 14px 39px;
-    width: 124px;
-    height: 48px;
-  }
-}

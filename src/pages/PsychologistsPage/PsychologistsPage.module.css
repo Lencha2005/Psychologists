@@ -1,5 +1,11 @@
 .page {
-    /* background-color: var(--color-secondary-white); */
-padding-top: 64px;
-padding-bottom: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+@media screen and (min-width: 1200px) {
+  .page {
+    padding-top: 64px;
+    padding-bottom: 100px;
+  }
 }

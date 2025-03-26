@@ -1,5 +1,12 @@
-.list{
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+.selectorLabel {
+  font-size: 14px;
+  line-height: 1.28571;
+  color: #8a8a89;
+  margin-bottom: 8px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }

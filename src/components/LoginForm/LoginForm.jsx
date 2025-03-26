@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { loginFormSchema } from '../../schemas/schemas';
-import { selectIsLoginModalOpen } from '../../redux/modal/selectors';
-import { closeLoginModal } from '../../redux/modal/slice';
 import { loginUser } from '../../redux/auth/operations';
 import Button from '../ui/Button/Button';
 import ModalContainer from '../ui/ModalContainer/ModalContainer';
@@ -15,10 +13,8 @@ const initialValues = {
   password: '',
 };
 
-const LoginForm = () => {
+const LoginForm = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const isOpenLodIn = useSelector(selectIsLoginModalOpen);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -27,22 +23,19 @@ const LoginForm = () => {
 
   const handleSubmit = (values, actions) => {
     dispatch(loginUser(values));
-    dispatch(closeLoginModal());
     actions.resetForm();
+    onClose();
   };
 
   return (
     <ModalContainer
-      isOpen={isOpenLodIn}
-      onClose={() => dispatch(closeLoginModal())}
+      isOpen={isOpen}
+      onClose={onClose}
       className={css.modal}
       overlayClassName={css.overlay}
     >
       <div>
-        <button
-          className={css.btnClose}
-          onClick={() => dispatch(closeLoginModal())}
-        >
+        <button className={css.btnClose} onClick={onClose}>
           <svg className={css.iconClose}>
             <use href={`${sprite}#icon-close`}></use>
           </svg>

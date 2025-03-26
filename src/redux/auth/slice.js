@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { currentUser, loginUser, logoutUser, registerUser } from './operations';
+import {
+  currentUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  toggleFavorite,
+} from './operations';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -15,7 +21,9 @@ const INITIAL_STATE = {
   user: {
     name: null,
     email: null,
+    uid: null,
   },
+  favorites: [],
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
@@ -32,6 +40,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         state.isLoggedIn = true;
+        state.favorites = action.payload.favorites || [];
       })
       .addCase(registerUser.rejected, handleRejected)
       .addCase(loginUser.pending, handlePending)
@@ -39,31 +48,39 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         state.isLoggedIn = true;
+        state.favorites = action.payload.favorites;
       })
       .addCase(loginUser.rejected, handleRejected)
       .addCase(currentUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(currentUser.fulfilled, (state, action) => {
-        if(action.payload) {
+        if (action.payload) {
           state.user = action.payload;
-        state.isLoggedIn = true;
+          state.isLoggedIn = true;
+          state.favorites = action.payload.favorites;
         } else {
-          state.user = {name:'', email:''};
+          state.user = { uid: null, name: '', email: '' };
           state.isLoggedIn = false;
+          state.favorites = [];
         }
         state.isRefreshing = false;
-      
       })
       .addCase(currentUser.rejected, (state, action) => {
         state.isRefreshing = false;
         state.error = action.payload;
       })
+      .addCase(toggleFavorite.pending, handlePending)
+      .addCase(toggleFavorite.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.favorites = action.payload;
+      })
+      .addCase(toggleFavorite.rejected, handleRejected)
       .addCase(logoutUser.pending, handlePending)
-      .addCase(logoutUser.fulfilled, state => {
+      .addCase(logoutUser.fulfilled, () => {
         return INITIAL_STATE;
       })
-      .addCase(logoutUser.rejected, handleRejected)
+      .addCase(logoutUser.rejected, handleRejected),
 });
 
 export const authReducer = authSlice.reducer;

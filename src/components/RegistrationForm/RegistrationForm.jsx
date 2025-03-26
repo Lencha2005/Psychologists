@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { registrationFormSchema } from '../../schemas/schemas';
-import { selectIsRegistrationModalOpen } from '../../redux/modal/selectors';
-import { closeRegistrationModal } from '../../redux/modal/slice';
 import Button from '../ui/Button/Button';
 import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import sprite from '../../../public/sprite.svg';
@@ -16,10 +14,8 @@ const initialValues = {
   password: '',
 };
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const isOpenSingUp = useSelector(selectIsRegistrationModalOpen);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -30,21 +26,18 @@ const RegistrationForm = () => {
     const result = dispatch(registerUser(values));
     console.log('result: ', result);
     actions.resetForm();
-    dispatch(closeRegistrationModal());
+    onClose();
   };
 
   return (
     <ModalContainer
-      isOpen={isOpenSingUp}
-      onClose={() => dispatch(closeRegistrationModal())}
+      isOpen={isOpen}
+      onClose={onClose}
       className={css.modal}
       overlayClassName={css.overlay}
     >
       <div>
-        <button
-          className={css.btnClose}
-          onClick={() => dispatch(closeRegistrationModal())}
-        >
+        <button className={css.btnClose} onClick={onClose}>
           <svg className={css.iconClose}>
             <use href={`${sprite}#icon-close`}></use>
           </svg>

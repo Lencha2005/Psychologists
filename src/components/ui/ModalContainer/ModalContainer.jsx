@@ -4,8 +4,8 @@ Modal.setAppElement('#root');
 
 const ModalContainer = ({
   isOpen = false,
-  className = css.modal,
-  overlayClassName = css.overlay,
+  className,
+  overlayClassName,
   onClose,
   children,
 }) => {

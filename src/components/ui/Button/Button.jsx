@@ -3,7 +3,6 @@ import css from './Button.module.css';
 
 const Button = ({
   variant = 'default',
-  // width = '100%',
   className,
   type = 'button',
   onClick,
@@ -13,18 +12,10 @@ const Button = ({
     css.button,
     variant === 'default' && css.buttonDefault,
     variant === 'log' && css.buttonLog,
-    // variant === "green" && css.buttonGreen,
-    // variant === "blue" && css.buttonBlue,
-    // variant === "orange" && css.buttonOrange,
     className && className
   );
   return (
-    <button
-      type={type}
-      className={buttonStyle}
-      // style={{ width }}
-      onClick={onClick}
-    >
+    <button type={type} className={buttonStyle} onClick={onClick}>
       {children}
     </button>
   );
