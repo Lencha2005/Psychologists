@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
-import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import UserMenu from '../UserMenu/UserMenu';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import sprite from '../../../public/sprite.svg';
-
 import css from './Header.module.css';
 
 const Header = () => {

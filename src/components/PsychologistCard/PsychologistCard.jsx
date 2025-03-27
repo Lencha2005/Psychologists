@@ -13,26 +13,28 @@ const PsychologistCard = ({ psychologist }) => {
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.includes(psychologist.name);
 
-  const [open, setOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openReadMore, setOpenReadMore] = useState(false);
+  const [isModalFavorites, setIsModalFavorites] = useState(false);
 
   const reviews = psychologist.reviews;
 
-  const onOpen = () => {
-    setOpen(true);
+  const onOpenReadMore = () => {
+    setOpenReadMore(true);
   };
+
+  const onCloseModalFavorites = () => {
+    setIsModalFavorites(false);
+  };
+
 
   const handleFavorites = () => {
     if (!isLoggedIn) {
-      setIsModalOpen(true);
+      setIsModalFavorites(true);
     } else {
       dispatch(toggleFavorite(psychologist.name));
     }
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const getIconHeartClass = () => {
     if (isFavorite) {
@@ -75,16 +77,17 @@ const PsychologistCard = ({ psychologist }) => {
             </svg>
           </div>
         </div>
-        <ModalContainer
-          isOpen={isModalOpen}
-          onClose={closeModal}
+        {/* <ModalContainer
+        id='heart'
+          isOpen={isModalFavorites}
+          onClose={onCloseModalFavorites}
           className={css.modal}
           overlayClassName={css.overlay}
         >
           <p className={css.modalText}>
             Only registered users can add favorites.
           </p>
-        </ModalContainer>
+        </ModalContainer> */}
         <div className={css.wrapperAbout}>
           <p className={css.profession}>Psychologist</p>
           <p className={css.name}>{psychologist.name}</p>
@@ -110,14 +113,14 @@ const PsychologistCard = ({ psychologist }) => {
         </ul>
         <p className={css.textAbout}>{psychologist.about}</p>
 
-        {!open && (
-          <button className={css.btnReadMore} type="button" onClick={onOpen}>
+        {!openReadMore ? (
+          <button className={css.btnReadMore} type="button" onClick={onOpenReadMore}>
             Read more
           </button>
-        )}
-        {open && (
+        ) :
+        (
           <div className={css.details}>
-            <PsychologistDetails reviews={reviews} />
+            <PsychologistDetails reviews={reviews} psychologist={psychologist}/>
           </div>
         )}
       </div>

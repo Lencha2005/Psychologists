@@ -4,6 +4,7 @@ import Header from '../../Header/Header';
 import Container from '../Container/Container';
 import Loader from '../Loader/Loader';
 import css from './Layout.module.css';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const Layout = ({ children }) => {
           <Outlet />
         </Container>
       </main>
+      <ModalContainer className={css.overlay}/>
     </div>
   );
 };

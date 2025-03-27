@@ -1,8 +1,18 @@
-import sprite from '../../../public/sprite.svg';
+import { useState } from 'react';
 import Button from '../ui/Button/Button';
+import MakeAppointment from '../MakeAppointment/MakeAppointment';
+import sprite from '../../../public/sprite.svg';
 import css from './PsychologistDetails.module.css';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/modal/slice';
 
-const PsychologistDetails = ({ reviews }) => {
+const PsychologistDetails = ({ reviews, psychologist }) => {
+  const dispatch = useDispatch();
+
+  const onAppointmentClick = () => {
+    dispatch(openModal({ type: 'appointment', props: psychologist }));
+  };
+
   return (
     <>
       <ul className={css.list}>
@@ -27,7 +37,12 @@ const PsychologistDetails = ({ reviews }) => {
           );
         })}
       </ul>
-      <Button type="button" variant="default" className={css.btn}>
+      <Button
+        type="button"
+        variant="default"
+        className={css.btn}
+        onClick={onAppointmentClick}
+      >
         Make an appointment
       </Button>
     </>
