@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 
 const numberRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 export const registrationFormSchema = Yup.object().shape({
   name: Yup.string()
@@ -30,7 +29,6 @@ export const makeAppointmentSchema = Yup.object().shape({
     .matches(numberRegex, 'Invalid phone number. Phone must be +380XXXXXXXXX')
     .required('Phone number is required!'),
   time: Yup.string()
-    .matches(timeRegex, 'Invalid time format (HH:mm)')
     .required('Meeting time is required!'),
   email: Yup.string()
     .email('Invalid email address')

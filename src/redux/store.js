@@ -1,8 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer } from './auth/slice';
-import { psychologistsReducer } from './psychologists/slice';
-import { themeReducer } from './theme/slice';
-import { modalReducer } from './modal/slice';
 import {
   persistStore,
   persistReducer,
@@ -12,24 +8,20 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import rootReducer from './rootReducer';
 
 const persistConfig = {
-  key: "theme",
+  key: 'root',
   storage,
-  whitelist: ["theme"],
+  whitelist: ['theme', 'auth'],
 };
 
-const persistedThemeReducer = persistReducer(persistConfig, themeReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    psychologists: psychologistsReducer,
-    modal: modalReducer,
-    theme: persistedThemeReducer,
-  },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
