@@ -1,9 +1,8 @@
-import React from 'react'
+import { PropagateLoader } from "react-spinners";
+import css from "./Loader.module.css";
 
 const Loader = () => {
-  return (
-    <div>Loader</div>
-  )
-}
+  return <PropagateLoader color='var(--button-bg-color)' className={css.loader} />;
+};
 
-export default Loader
+export default Loader;

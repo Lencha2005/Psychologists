@@ -38,7 +38,6 @@ const Navigation = ({ onClose }) => {
     if (location.pathname === '/') return 'Home';
     if (location.pathname === '/psychologists') return 'Psychologists';
     if (location.pathname === '/favorites') return 'Favorites';
-    return 'Menu';
   };
 
   return (

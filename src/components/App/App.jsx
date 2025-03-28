@@ -8,10 +8,11 @@ import {
   selectUserIsLoading,
 } from '../../redux/auth/selectors';
 import { selectPsychologistIsLoading } from '../../redux/psychologists/selectors';
+import { currentUser } from '../../redux/auth/operations';
+import { PrivateRoute } from '../ui/PrivateRoute';
 import Layout from '../ui/Layout/Layout';
 import Notification from '../ui/Notification/Notification';
 import Loader from '../ui/Loader/Loader';
-import { currentUser } from '../../redux/auth/operations';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const PsychologistsPage = lazy(() =>
@@ -39,22 +40,25 @@ function App() {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
-  if (isRefreshing) {
-    return <Loader />;
-  }
-
   return (
     <>
       <Notification />
-    <Layout>
       {(isLoadingUser || isLoadingPsychologist) && <Loader />}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/psychologists" element={<PsychologistsPage />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Layout>
+      {isRefreshing ? (
+        <Loader />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/psychologists" element={<PsychologistsPage />} />
+            <Route
+              path="/favorites"
+              element={<PrivateRoute component={<FavoritesPage />} />}
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      )}
     </>
   );
 }
