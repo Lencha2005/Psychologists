@@ -6,6 +6,7 @@ import { closeModal } from '../../redux/modal/slice';
 import Button from '../ui/Button/Button';
 import sprite from '../../../public/sprite.svg';
 import css from './MakeAppointment.module.css';
+import toast from 'react-hot-toast';
 
 const initialValues = {
   name: '',
@@ -22,6 +23,7 @@ const MakeAppointment = ({ psychologist }) => {
   const handleSubmit = (values, actions) => {
     // dispatch(loginUser(values));
     actions.resetForm();
+    toast.success ('You have successfully registered an appointment.')
     dispatch(closeModal());
   };
 

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { registrationFormSchema } from '../../schemas/schemas';
-import Button from '../ui/Button/Button';
 import { registerUser } from '../../redux/auth/operations';
 import { closeModal } from '../../redux/modal/slice';
+import toast from 'react-hot-toast';
+import Button from '../ui/Button/Button';
 import sprite from '../../../public/sprite.svg';
 import css from './RegistrationForm.module.css';
 
@@ -23,25 +24,34 @@ const RegistrationForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (values, actions) => {
-    dispatch(registerUser(values));
-    actions.resetForm();
-    dispatch(closeModal());
+  const handleSubmit = async (values, actions) => {
+    try {
+      await dispatch(registerUser(values)).unwrap();
+      actions.resetForm();
+      dispatch(closeModal());
+    } catch (error) {
+      if (error.includes('auth/email-already-in-use')) {
+        toast.error('The email address is already in use by another account');
+      } else if (error.includes('auth/weak-password')) {
+        toast.error('Password should be at least 6 characters');
+      } else {
+        toast.error('User not found. Please register first');
+      }
+    }
   };
 
   return (
     <>
       {isOpen && (
-          <div className={css.modalContent}>
-            <button
-              className={css.btnClose}
-              onClick={() => dispatch(closeModal())}
-            >
-              <svg className={css.iconClose}>
-                <use href={`${sprite}#icon-close`}></use>
-              </svg>
-            </button>
-          {/* </div> */}
+        <div className={css.modalContent}>
+          <button
+            className={css.btnClose}
+            onClick={() => dispatch(closeModal())}
+          >
+            <svg className={css.iconClose}>
+              <use href={`${sprite}#icon-close`}></use>
+            </svg>
+          </button>
           <h2 className={css.title}>Registration</h2>
           <p className={css.text}>
             Thank you for your interest in our platform! In order to register,

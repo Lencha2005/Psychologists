@@ -44,9 +44,10 @@ function App() {
   }
 
   return (
+    <>
+      <Notification />
     <Layout>
       {(isLoadingUser || isLoadingPsychologist) && <Loader />}
-      <Notification />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/psychologists" element={<PsychologistsPage />} />
@@ -54,6 +55,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
+    </>
   );
 }
 
