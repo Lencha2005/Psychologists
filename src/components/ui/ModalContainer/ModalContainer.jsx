@@ -1,11 +1,10 @@
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
-import css from './ModalContainer.module.css'
-
 import { closeModal } from '../../../redux/modal/slice';
 import LoginForm from '../../LoginForm/LoginForm';
 import RegistrationForm from '../../RegistrationForm/RegistrationForm';
 import MakeAppointment from '../../MakeAppointment/MakeAppointment';
+import css from './ModalContainer.module.css'
 
 Modal.setAppElement('#root');
 
@@ -17,23 +16,13 @@ const ModalContainer = () => {
   const closeModalHandler = () => {
     dispatch(closeModal());
   };
-
-  let modalStyle;
-
-  if(modalType === 'login') {
-    modalStyle = css.login;
-  } else if (modalType === 'register') {
-    modalStyle = css.register;
-  } else if (modalType === 'appointment') {
-    modalStyle = css.appointment
-  }
   
   console.log('modalType: ', modalType);
   return (
     <Modal
       isOpen={!!modalType}
       onRequestClose={closeModalHandler}
-      className={modalStyle}
+      className={css.modal}
       overlayClassName={css.overlay}
     >
       {modalType === 'login' && <LoginForm />}

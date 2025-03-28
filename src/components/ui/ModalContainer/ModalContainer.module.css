@@ -1,65 +1,44 @@
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    background-color: var(--bg-overlay-dark);
-  }
-  
-  .login {
-    position: absolute;
-    top: 100px;
-    border-radius: 30px;
-    background-color: var(--color-primary-white);
-    width: 300px;
-    overflow-y: auto;
-    padding: 32px;
-    outline: transparent;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: var(--bg-overlay-dark);
+}
 
-  .register {
-    position: absolute;
-    top: 100px;
-    border-radius: 30px;
-    background-color: var(--color-primary-white);
-    width: 300px;
-    padding: 32px;
-    outline: transparent;
-  }
+.modal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 30px;
+  background-color: var(--color-primary-white);
+  width: 300px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 48px 32px 32px 32px;
+  outline: transparent;
+}
 
-  .appointment{
-    position: relative;
-    border-radius: 30px;
-    background-color: var(--color-primary-white);
+@media screen and (min-width: 475px) {
+  .modal {
     width: 400px;
-    overflow-y: auto;
-    padding: 40px 32px 32px 32px;
-    outline: transparent;
   }
-  
+}
 
-  @media screen and (min-width: 768px) {
-    .login {
-      width: 400px;
-    }
-
-    .register {
-        width: 400px;
-      }
+@media screen and (min-width: 768px) {
+  .modal {
+    width: 500px;
   }
+}
 
-  @media screen and (min-width: 1200px) {
-    .login {
-      width: 565px;
-      padding: 64px;
-    }
-    .register {
-        width: 565px;
-        padding: 64px;
-      }
+@media screen and (min-width: 1200px) {
+  .modal {
+    width: 565px;
+    padding: 64px;
   }
+}

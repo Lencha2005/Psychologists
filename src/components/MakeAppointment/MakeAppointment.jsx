@@ -1,11 +1,11 @@
-import ModalContainer from '../ui/ModalContainer/ModalContainer';
-import sprite from '../../../public/sprite.svg';
-import css from './MakeAppointment.module.css';
+// import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { makeAppointmentSchema } from '../../schemas/schemas';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../ui/Button/Button';
 import { closeModal } from '../../redux/modal/slice';
+import Button from '../ui/Button/Button';
+import sprite from '../../../public/sprite.svg';
+import css from './MakeAppointment.module.css';
 
 const initialValues = {
   name: '',

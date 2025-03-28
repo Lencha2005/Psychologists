@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
 import { toggleFavorite } from '../../redux/auth/operations';
-import ModalContainer from '../ui/ModalContainer/ModalContainer';
+// import ModalContainer from '../ui/ModalContainer/ModalContainer';
 import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
 import sprite from '../../../public/sprite.svg';
 import css from './PsychologistCard.module.css';
+
+
 
 const PsychologistCard = ({ psychologist }) => {
   const dispatch = useDispatch();
@@ -78,7 +80,6 @@ const PsychologistCard = ({ psychologist }) => {
           </div>
         </div>
         {/* <ModalContainer
-        id='heart'
           isOpen={isModalFavorites}
           onClose={onCloseModalFavorites}
           className={css.modal}
