@@ -1,80 +1,58 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllPsychologists } from './operations';
+import { fetchPsychologists } from './operations';
 
-const handlePending = state => {
-  state.isLoading = true;
-  state.error = null;
-};
-
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const INITIAL_STATE = {
+const initialState = {
   items: [],
-  filteredItems: [],
-  filterType: 'Show all',
   page: 1,
-  perPage: 3,
+  hasMore: false,
+  sortBy: 'Show all',
+  lastKey: null,
   isLoading: false,
   error: null,
 };
 
 const psychologistsSlice = createSlice({
   name: 'psychologists',
-  initialState: INITIAL_STATE,
+  initialState,
   reducers: {
-    setFilterType(state, action) {
-      state.filterType = action.payload;
+    resetPsychologists: state => {
+      state.items = [];
       state.page = 1;
+      state.hasMore = false;
+      state.error = null;
+      state.lastKey = null;
     },
-    setPage(state, action) {
-      state.page = action.payload;
+    incrementPage: state => {
+      state.page += 1;
     },
-    applyFilters: state => {
-      let filtered = [...state.items];
-
-      switch (state.filterType) {
-        case 'A to Z':
-          filtered.sort((a, b) => a.name.localeCompare(b.name));
-          break;
-        case 'Z to A':
-          filtered.sort((a, b) => b.name.localeCompare(a.name));
-          break;
-        case 'Less than 10$':
-          filtered.sort((a, b) => a.price_per_hour - b.price_per_hour);
-          break;
-        case 'Greater than 10$':
-          filtered.sort((a, b) => b.price_per_hour - a.price_per_hour);
-          break;
-        case 'Popular':
-          filtered.sort((a, b) => b.rating - a.rating);
-          break;
-        case 'Not popular':
-          filtered.sort((a, b) => a.rating - b.rating);
-          break;
-        default:
-          break;
-      }
-      state.filteredItems = filtered;
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
     },
   },
-  extraReducers: builder =>
+  extraReducers: builder => {
     builder
-      .addCase(fetchAllPsychologists.pending, handlePending)
-      .addCase(fetchAllPsychologists.fulfilled, (state, action) => {
-        console.log('action.payload: ', action.payload);
-        state.isLoading = false;
-        state.items = action.payload;
-        console.log('state.items: ', state.items);
-        state.filteredItems = action.payload;
-        console.log('state.filteredItems: ', state.filteredItems);
+      .addCase(fetchPsychologists.pending, state => {
+        state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchAllPsychologists.rejected, handleRejected),
+      .addCase(fetchPsychologists.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasMore = action.payload.hasMore;
+        state.lastKey = action.payload.lastKey || null;
+
+        const existingIds = new Set(state.items.map(p => p.id));
+        const newItems = action.payload.psychologists.filter(
+          p => !existingIds.has(p.id)
+        );
+        state.items = [...state.items, ...newItems];
+      })
+      .addCase(fetchPsychologists.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
-export const psychologistsReducer = psychologistsSlice.reducer;
-export const { setFilterType, setPage, applyFilters } =
+export const { resetPsychologists, incrementPage, setSortBy } =
   psychologistsSlice.actions;
+export const psychologistsReducer = psychologistsSlice.reducer;

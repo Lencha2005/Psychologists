@@ -4,20 +4,19 @@ import { closeModal } from '../../../redux/modal/slice';
 import LoginForm from '../../LoginForm/LoginForm';
 import RegistrationForm from '../../RegistrationForm/RegistrationForm';
 import MakeAppointment from '../../MakeAppointment/MakeAppointment';
-import css from './ModalContainer.module.css'
+import css from './ModalContainer.module.css';
 
 Modal.setAppElement('#root');
 
 const ModalContainer = () => {
-  const modalType = useSelector((state) => state.modal.modalType);
-  const modalProps = useSelector((state) => state.modal.modalProps);
+  const modalType = useSelector(state => state.modal.modalType);
+  const modalProps = useSelector(state => state.modal.modalProps);
   const dispatch = useDispatch();
-  
+
   const closeModalHandler = () => {
     dispatch(closeModal());
   };
-  
-  console.log('modalType: ', modalType);
+
   return (
     <Modal
       isOpen={!!modalType}
@@ -27,7 +26,9 @@ const ModalContainer = () => {
     >
       {modalType === 'login' && <LoginForm />}
       {modalType === 'register' && <RegistrationForm />}
-      {modalType === 'appointment' && <MakeAppointment psychologist={modalProps}/>}
+      {modalType === 'appointment' && (
+        <MakeAppointment psychologist={modalProps} />
+      )}
     </Modal>
   );
 };

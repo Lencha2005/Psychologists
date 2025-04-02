@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ref, get, set, remove } from 'firebase/database';
 import { auth, db } from '../../firebase/firebaseConfig';
 import {
   createUserWithEmailAndPassword,
@@ -7,7 +8,6 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { get, ref, set } from 'firebase/database';
 
 export const registerUser = createAsyncThunk(
   'auth/register',
@@ -48,7 +48,8 @@ export const loginUser = createAsyncThunk(
 
       let favorites = [];
       if (snapshot.exists()) {
-        favorites = snapshot.val().favorites || [];
+        const val = snapshot.val();
+        favorites = val.favorites ? Object.values(val.favorites) : [];
       } else {
         await set(userRef, {
           name: user.displayName,
@@ -80,7 +81,8 @@ export const currentUser = createAsyncThunk(
 
           let favorites = [];
           if (snapshot.exists()) {
-            favorites = snapshot.val().favorites || [];
+            const val = snapshot.val();
+            favorites = val.favorites ? Object.values(val.favorites) : [];
           }
           resolve({
             uid: userId,
@@ -96,26 +98,74 @@ export const currentUser = createAsyncThunk(
   }
 );
 
+export const fetchFavorites = createAsyncThunk(
+  'auth/fetchFavorites',
+  async (
+    { sortBy = 'name', order = 'asc', lastKey = null, limit = 3 },
+    { getState, rejectWithValue }
+  ) => {
+    try {
+      const userId = getState().auth.user.uid;
+      const dbRef = ref(db, `users/${userId}/favorites`);
+      const snapshot = await get(dbRef);
+
+      if (!snapshot.exists()) return [];
+
+      let data = Object.values(snapshot.val());
+
+      data.sort((a, b) => {
+        if (sortBy === 'price') {
+          return order === 'asc'
+            ? a.price_per_hour - b.price_per_hour
+            : b.price_per_hour - a.price_per_hour;
+        }
+        if (sortBy === 'rating') {
+          return order === 'asc' ? a.rating - b.rating : b.rating - a.rating;
+        }
+        // name by default
+        return order === 'asc'
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      });
+
+      // пагінація вручну, бо Firebase не дає startAfter по локальному масиву
+      const startIndex = lastKey
+        ? data.findIndex(item => item.id === lastKey) + 1
+        : 0;
+      const paginated = data.slice(startIndex, startIndex + limit);
+
+      return {
+        favorites: paginated,
+        lastVisible: paginated.length
+          ? paginated[paginated.length - 1].id
+          : null,
+        hasMore: startIndex + limit < data.length,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const toggleFavorite = createAsyncThunk(
   'auth/toggleFavorite',
-  async (psychologistId, { getState, rejectWithValue }) => {
+  async (psychologist, { rejectWithValue }) => {
     try {
-      const { auth } = getState();
-      const userId = auth.user.uid;
-      if (!userId) return rejectWithValue('User is not authenticated');
+      const userId = auth.currentUser?.uid;
+      if (!userId) return rejectWithValue('User not authenticated');
 
-      const userRef = ref(db, `users/${userId}/favorites`);
-      const snapshot = await get(userRef);
-      let favorites = snapshot.exists() ? snapshot.val() : [];
-
-      if (favorites.includes(psychologistId)) {
-        favorites = favorites.filter(id => id !== psychologistId);
+      const favRef = ref(db, `users/${userId}/favorites/${psychologist.id}`);
+      const snapshot = await get(favRef);
+      if (snapshot.exists()) {
+        await remove(favRef);
       } else {
-        favorites.push(psychologistId);
+        await set(favRef, { ...psychologist, id: psychologist.id });
       }
 
-      await set(userRef, favorites);
-      return favorites;
+      const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
+      return updatedSnapshot.exists()
+        ? Object.values(updatedSnapshot.val())
+        : [];
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -2,21 +2,18 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
 import { toggleFavorite } from '../../redux/auth/operations';
-// import ModalContainer from '../ui/ModalContainer/ModalContainer';
+import toast from 'react-hot-toast';
 import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
 import sprite from '../../../public/sprite.svg';
 import css from './PsychologistCard.module.css';
-
-
 
 const PsychologistCard = ({ psychologist }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.includes(psychologist.name);
+  const isFavorite = favorites.some(item => item.id === psychologist.id);
 
   const [openReadMore, setOpenReadMore] = useState(false);
-  const [isModalFavorites, setIsModalFavorites] = useState(false);
 
   const reviews = psychologist.reviews;
 
@@ -24,19 +21,13 @@ const PsychologistCard = ({ psychologist }) => {
     setOpenReadMore(true);
   };
 
-  const onCloseModalFavorites = () => {
-    setIsModalFavorites(false);
-  };
-
-
   const handleFavorites = () => {
-    if (!isLoggedIn) {
-      setIsModalFavorites(true);
+    if (isLoggedIn) {
+      dispatch(toggleFavorite(psychologist));
     } else {
-      dispatch(toggleFavorite(psychologist.name));
+      toast.error('Functionality is available only to authorized users');
     }
   };
-
 
   const getIconHeartClass = () => {
     if (isFavorite) {
@@ -79,16 +70,7 @@ const PsychologistCard = ({ psychologist }) => {
             </svg>
           </div>
         </div>
-        {/* <ModalContainer
-          isOpen={isModalFavorites}
-          onClose={onCloseModalFavorites}
-          className={css.modal}
-          overlayClassName={css.overlay}
-        >
-          <p className={css.modalText}>
-            Only registered users can add favorites.
-          </p>
-        </ModalContainer> */}
+
         <div className={css.wrapperAbout}>
           <p className={css.profession}>Psychologist</p>
           <p className={css.name}>{psychologist.name}</p>
@@ -115,13 +97,19 @@ const PsychologistCard = ({ psychologist }) => {
         <p className={css.textAbout}>{psychologist.about}</p>
 
         {!openReadMore ? (
-          <button className={css.btnReadMore} type="button" onClick={onOpenReadMore}>
+          <button
+            className={css.btnReadMore}
+            type="button"
+            onClick={onOpenReadMore}
+          >
             Read more
           </button>
-        ) :
-        (
+        ) : (
           <div className={css.details}>
-            <PsychologistDetails reviews={reviews} psychologist={psychologist}/>
+            <PsychologistDetails
+              reviews={reviews}
+              psychologist={psychologist}
+            />
           </div>
         )}
       </div>
