@@ -3,6 +3,7 @@ import sprite from '../../../public/sprite.svg';
 import img1 from '../../img/image.png';
 import img2 from '../../img/image@2x.png';
 import css from './HomePage.module.css';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -16,12 +17,14 @@ const HomePage = () => {
           We help you to reveal your potential, overcome challenges and find a
           guide in your own life with the help of our experienced psychologists.
         </p>
-        <Button type="button" className={css.btn} variant="default" width={235}>
+        <div className={css.wrapperLink}>
+        <NavLink className={css.link} width={235} to={'/psychologists'}>
           Get started{' '}
-          <svg className={css.btnSvg}>
+          <svg className={css.svgLink}>
             <use href={`${sprite}#icon-arrow`}></use>
           </svg>
-        </Button>
+        </NavLink>
+        </div>
       </div>
       <img className={css.img} src={img1} srcSet={img2} alt="Psychologist" />
       <div className={css.checkWrap}>

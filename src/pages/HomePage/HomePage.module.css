@@ -35,17 +35,31 @@
   margin-bottom: 20px;
 }
 
-.btn {
+.wrapperLink{
   width: 236px;
+  border-radius: 30px;
+  background-color: var(--button-bg-color);
+  color: var(--color-primary-white);
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: auto;
+  margin-left: auto;
+  transition: background-color var(--primary-transition);
+}
+
+.wrapperLink:hover,
+.wrapperLink:focus {
+  background-color: var(--button-bg-color-hover);
+}
+
+.link {
   display: flex;
   align-items: center;
   gap: 18px;
   padding: 18px 50px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
-.btnSvg {
+.svgLink {
   width: 15px;
   height: 17px;
 }
@@ -166,11 +180,11 @@
     max-width: 450px;
   }
 
-  .btn {
+  .wrapperLink{
     margin: 0;
   }
-
-  .btnSvg {
+  
+  .svgLink {
     width: 15px;
     height: 17px;
   }
