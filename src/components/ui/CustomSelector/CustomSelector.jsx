@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import sprite from '../../../../public/sprite.svg';
 import css from './CustomSelector.module.css';
 
@@ -8,6 +9,9 @@ const CustomSelector = ({
   isOpen,
   setOpenSelector,
 }) => {
+
+  const selectorRef = useRef(null);
+
   const handleSelect = option => {
     onChange(option.value);
     setOpenSelector(false);
@@ -17,8 +21,20 @@ const CustomSelector = ({
     setOpenSelector(prev => !prev);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectorRef.current && !selectorRef.current.contains(e.target)) {
+        setOpenSelector(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setOpenSelector]);
+
   return (
-    <div className={css.selectorWrapper}>
+    <div className={css.selectorWrapper} ref={selectorRef}>
       <div className={css.selector} onClick={handleToggle}>
         <span className={css.placeholder}>{value}</span>
         <svg className={css.icon}>

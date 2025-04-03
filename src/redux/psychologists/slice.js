@@ -1,35 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchPsychologists } from './operations';
+import { applySorting } from '../../utils/applySorting';
+import { paginate } from '../../utils/paginate';
 
-const initialState = {
+const INITIAL_STATE = {
   items: [],
-  page: 1,
+  lastKey: null,
   hasMore: false,
   sortBy: 'Show all',
-  lastKey: null,
+  page: 1,
   isLoading: false,
   error: null,
 };
 
 const psychologistsSlice = createSlice({
   name: 'psychologists',
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {
     resetPsychologists: state => {
       state.items = [];
-      state.page = 1;
-      state.hasMore = false;
-      state.error = null;
       state.lastKey = null;
+      state.hasMore = false;
+      state.page = 1;
+      state.error = null;
+    },
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
+      state.page = 1;
     },
     incrementPage: state => {
       state.page += 1;
     },
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload;
-    },
   },
-  extraReducers: builder => {
+  extraReducers: builder =>
     builder
       .addCase(fetchPsychologists.pending, state => {
         state.isLoading = true;
@@ -40,19 +43,38 @@ const psychologistsSlice = createSlice({
         state.hasMore = action.payload.hasMore;
         state.lastKey = action.payload.lastKey || null;
 
-        const existingIds = new Set(state.items.map(p => p.id));
-        const newItems = action.payload.psychologists.filter(
-          p => !existingIds.has(p.id)
-        );
-        state.items = [...state.items, ...newItems];
+        let newItems = action.payload.psychologists;
+
+        if (state.sortBy === 'Show all') {
+          // бекенд пагінація
+          const existingIds = new Set(state.items.map(item => item.id));
+          const filtered = newItems.filter(item => !existingIds.has(item.id));
+          state.items = [...state.items, ...filtered];
+        } else {
+          // фронтенд сортування + пагінація
+          const sorted = applySorting(newItems, state.sortBy);
+          const { paginated, hasMore, lastKey } = paginate(sorted, state.page);
+
+          state.hasMore = hasMore;
+          state.lastKey = lastKey;
+
+          if (state.page === 1) {
+            state.items = paginated;
+          } else {
+            const existingIds = new Set(state.items.map(item => item.id));
+            const filtered = paginated.filter(
+              item => !existingIds.has(item.id)
+            );
+            state.items = [...state.items, ...filtered];
+          }
+        }
       })
       .addCase(fetchPsychologists.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      });
-  },
+      }),
 });
 
-export const { resetPsychologists, incrementPage, setSortBy } =
+export const { resetPsychologists, setSortBy, incrementPage } =
   psychologistsSlice.actions;
 export const psychologistsReducer = psychologistsSlice.reducer;

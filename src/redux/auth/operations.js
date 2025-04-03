@@ -100,10 +100,7 @@ export const currentUser = createAsyncThunk(
 
 export const fetchFavorites = createAsyncThunk(
   'auth/fetchFavorites',
-  async (
-    { sortBy = 'name', order = 'asc', lastKey = null, limit = 3 },
-    { getState, rejectWithValue }
-  ) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       const userId = getState().auth.user.uid;
       const dbRef = ref(db, `users/${userId}/favorites`);
@@ -111,36 +108,8 @@ export const fetchFavorites = createAsyncThunk(
 
       if (!snapshot.exists()) return [];
 
-      let data = Object.values(snapshot.val());
-
-      data.sort((a, b) => {
-        if (sortBy === 'price') {
-          return order === 'asc'
-            ? a.price_per_hour - b.price_per_hour
-            : b.price_per_hour - a.price_per_hour;
-        }
-        if (sortBy === 'rating') {
-          return order === 'asc' ? a.rating - b.rating : b.rating - a.rating;
-        }
-        // name by default
-        return order === 'asc'
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      });
-
-      // пагінація вручну, бо Firebase не дає startAfter по локальному масиву
-      const startIndex = lastKey
-        ? data.findIndex(item => item.id === lastKey) + 1
-        : 0;
-      const paginated = data.slice(startIndex, startIndex + limit);
-
-      return {
-        favorites: paginated,
-        lastVisible: paginated.length
-          ? paginated[paginated.length - 1].id
-          : null,
-        hasMore: startIndex + limit < data.length,
-      };
+      const data = Object.values(snapshot.val());
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -163,9 +132,7 @@ export const toggleFavorite = createAsyncThunk(
       }
 
       const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
-      return updatedSnapshot.exists()
-        ? Object.values(updatedSnapshot.val())
-        : [];
+      return Object.values(updatedSnapshot.val() || {});
     } catch (error) {
       return rejectWithValue(error.message);
     }
