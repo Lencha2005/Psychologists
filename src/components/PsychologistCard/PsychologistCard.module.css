@@ -89,8 +89,6 @@
   height: 76px;
 }
 
-
-
 .wrappIconCircle {
   position: absolute;
   top: 9px;
@@ -166,7 +164,7 @@
   grid-area: detail;
 }
 
-.overlay{
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -179,7 +177,7 @@
   background-color: var(--bg-overlay-dark);
 }
 
-.modal{
+.modal {
   position: relative;
   border-radius: 30px;
   background-color: var(--color-primary-white);
@@ -189,7 +187,7 @@
   outline: transparent;
 }
 
-.modalText{
+.modalText {
   font-weight: 500;
   font-size: 18px;
   text-align: center;

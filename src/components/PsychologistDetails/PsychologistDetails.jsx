@@ -1,10 +1,8 @@
-import { useState } from 'react';
-import Button from '../ui/Button/Button';
-import MakeAppointment from '../MakeAppointment/MakeAppointment';
-import sprite from '../../../public/sprite.svg';
-import css from './PsychologistDetails.module.css';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modal/slice';
+import Button from '../ui/Button/Button';
+import sprite from '../../assets/sprite/sprite.svg';
+import css from './PsychologistDetails.module.css';
 
 const PsychologistDetails = ({ reviews, psychologist }) => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import UserMenu from '../UserMenu/UserMenu';
 import AuthMenu from '../AuthMenu/AuthMenu';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './Header.module.css';
 
 const Header = () => {

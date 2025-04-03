@@ -19,14 +19,14 @@ import {
   selectPaginatedFavorites,
   selectUserIsLoading,
 } from '../../redux/auth/selectors';
-import PsychologistCard from '../PsychologistCard/PsychologistCard';
-import CustomSelector from '../ui/CustomSelector/CustomSelector';
-import Button from '../ui/Button/Button';
-import css from './PsychologistsList.module.css';
 import {
   incrementFavoritesPage,
   setSortByFavorites,
 } from '../../redux/auth/slice';
+import PsychologistCard from '../PsychologistCard/PsychologistCard';
+import CustomSelector from '../ui/CustomSelector/CustomSelector';
+import Button from '../ui/Button/Button';
+import css from './PsychologistsList.module.css';
 
 const options = [
   'A to Z',

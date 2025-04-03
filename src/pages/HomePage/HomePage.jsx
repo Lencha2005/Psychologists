@@ -1,9 +1,8 @@
-import Button from '../../components/ui/Button/Button';
-import sprite from '../../../public/sprite.svg';
-import img1 from '../../img/image.png';
-import img2 from '../../img/image@2x.png';
-import css from './HomePage.module.css';
 import { NavLink } from 'react-router-dom';
+import sprite from '../../assets/sprite/sprite.svg';
+import img1 from '../../assets/img/image.png';
+import img2 from '../../assets/img/image@2x.png';
+import css from './HomePage.module.css';
 
 const HomePage = () => {
   return (

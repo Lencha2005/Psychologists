@@ -4,7 +4,7 @@ import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
 import { toggleFavorite } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './PsychologistCard.module.css';
 
 const PsychologistCard = ({ psychologist }) => {

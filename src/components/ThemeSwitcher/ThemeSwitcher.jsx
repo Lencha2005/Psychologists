@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setTheme } from '../../redux/theme/slice';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = () => {
@@ -12,7 +12,6 @@ const ThemeSwitcher = () => {
 
   return (
     <div className={css.wrapper}>
-      {/* <p>Theme</p> */}
       <div className={css.btnWrap}>
         <button className={css.btn} onClick={() => handleThemeChange('green')}>
           <svg className={css.green}>

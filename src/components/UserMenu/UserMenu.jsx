@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
 import { logoutUser } from '../../redux/auth/operations';
 import Button from '../ui/Button/Button';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './UserMenu.module.css';
 
 const UserMenu = () => {

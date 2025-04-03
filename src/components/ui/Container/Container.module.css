@@ -15,14 +15,12 @@
   .container {
     min-width: 768px;
     max-width: 1000px;
-    /* padding: 0 32px; */
   }
 }
 
 @media screen and (min-width: 1200px) {
     .container {
       min-width: 1200px;
-      /* padding: 0 60px; */
     }
   }
 

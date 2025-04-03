@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import sprite from '../../../../public/sprite.svg';
+import sprite from '../../../assets/sprite/sprite.svg';
 import css from './CustomSelector.module.css';
 
 const CustomSelector = ({

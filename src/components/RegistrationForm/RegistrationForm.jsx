@@ -6,7 +6,7 @@ import { registerUser } from '../../redux/auth/operations';
 import { closeModal } from '../../redux/modal/slice';
 import toast from 'react-hot-toast';
 import Button from '../ui/Button/Button';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './RegistrationForm.module.css';
 
 const initialValues = {

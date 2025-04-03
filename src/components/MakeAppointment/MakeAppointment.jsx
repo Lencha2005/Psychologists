@@ -1,12 +1,13 @@
-import { getDatabase, ref, push } from 'firebase/database';
+import { ref, push } from 'firebase/database';
+import { db } from '../../firebase/firebaseConfig';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { makeAppointmentSchema } from '../../schemas/schemas';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../redux/modal/slice';
 import toast from 'react-hot-toast';
-import Button from '../ui/Button/Button';
 import TimePicker from '../TimePicker/TimePicker';
-import sprite from '../../../public/sprite.svg';
+import Button from '../ui/Button/Button';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './MakeAppointment.module.css';
 
 const initialValues = {
@@ -22,8 +23,7 @@ const MakeAppointment = ({ psychologist }) => {
   const isOpen = useSelector(state => state.modal.modalType === 'appointment');
 
   const handleSubmit = async (values, actions) => {
-    const db = getDatabase(); // Отримуємо базу даних
-    const appointmentsRef = ref(db, 'appointments'); // Посилання на колекцію
+    const appointmentsRef = ref(db, 'appointments');
 
     const newAppointment = {
       psychologist_name: psychologist.name,
@@ -116,7 +116,6 @@ const MakeAppointment = ({ psychologist }) => {
                     <TimePicker
                       value={values.time}
                       onSelectTime={time => {
-                        console.log('selected time', time);
                         setFieldValue('time', time);
                       }}
                     />

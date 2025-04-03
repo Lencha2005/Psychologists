@@ -6,7 +6,7 @@ import { loginUser } from '../../redux/auth/operations';
 import { closeModal } from '../../redux/modal/slice';
 import toast from 'react-hot-toast';
 import Button from '../ui/Button/Button';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './LoginForm.module.css';
 
 const initialValues = {
@@ -24,18 +24,17 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (values, actions) => {
-    
     try {
       await dispatch(loginUser(values)).unwrap();
-    actions.resetForm();
-    dispatch(closeModal());
-    } catch(error) {
-      if(error.includes("auth/invalid-credential")) {
+      actions.resetForm();
+      dispatch(closeModal());
+    } catch (error) {
+      if (error.includes('auth/invalid-credential')) {
         toast.error('Incorrect email or password. Try again!');
       } else {
-        toast.error('User not found. Please register first')
+        toast.error('User not found. Please register first');
       }
-    };
+    }
   };
 
   return (

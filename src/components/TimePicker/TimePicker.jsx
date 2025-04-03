@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import sprite from '../../../public/sprite.svg';
+import sprite from '../../assets/sprite/sprite.svg';
 import css from './TimePicker.module.css';
 
 const generateTimes = () => {

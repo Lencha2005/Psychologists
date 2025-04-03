@@ -23,8 +23,8 @@
   --bg-icon-color2: #fbc75e;
   --color-background-avatar: rgba(84, 190, 150, 0.2);
   --bg-image: image-set(
-    url('/src/img/bg-green.png') 1x,
-    url('/src/img/bg-green@2x.png') 2x
+    url('/src/assets/img/bg-green.png') 1x,
+    url('/src/assets/img/bg-green@2x.png') 2x
   );
 }
 
@@ -36,8 +36,8 @@
   --bg-icon-color2: #fbc75e;
   --color-background-avatar: rgba(52, 112, 255, 0.2);
   --bg-image: image-set(
-    url('/src/img/bg-blue.png') 1x,
-    url('/src/img/bg-blue@2x.png') 2x
+    url('/src/assets/img/bg-blue.png') 1x,
+    url('/src/assets/img/bg-blue@2x.png') 2x
   );
 }
 
@@ -49,8 +49,8 @@
   --bg-icon-color2: #fbc75e;
   --color-background-avatar: rgba(252, 131, 44, 0.2);
   --bg-image: image-set(
-    url('/src/img/bg-orange.png') 1x,
-    url('/src/img/bg-orange@2x.png') 2x
+    url('/src/assets/img/bg-orange.png') 1x,
+    url('/src/assets/img/bg-orange@2x.png') 2x
   );
 }
 
