@@ -35,7 +35,7 @@
   margin-bottom: 20px;
 }
 
-.wrapperLink{
+.wrapperLink {
   width: 236px;
   border-radius: 30px;
   background-color: var(--button-bg-color);
@@ -180,10 +180,10 @@
     max-width: 450px;
   }
 
-  .wrapperLink{
+  .wrapperLink {
     margin: 0;
   }
-  
+
   .svgLink {
     width: 15px;
     height: 17px;
