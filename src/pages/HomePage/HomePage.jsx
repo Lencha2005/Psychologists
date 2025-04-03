@@ -18,12 +18,12 @@ const HomePage = () => {
           guide in your own life with the help of our experienced psychologists.
         </p>
         <div className={css.wrapperLink}>
-        <NavLink className={css.link} width={235} to={'/psychologists'}>
-          Get started{' '}
-          <svg className={css.svgLink}>
-            <use href={`${sprite}#icon-arrow`}></use>
-          </svg>
-        </NavLink>
+          <NavLink className={css.link} width={235} to={'/psychologists'}>
+            Get started{' '}
+            <svg className={css.svgLink}>
+              <use href={`${sprite}#icon-arrow`}></use>
+            </svg>
+          </NavLink>
         </div>
       </div>
       <img className={css.img} src={img1} srcSet={img2} alt="Psychologist" />
