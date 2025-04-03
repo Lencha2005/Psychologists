@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  resetPsychologists,
-  setSortBy,
-  incrementPage,
-} from '../../redux/psychologists/slice';
+import { setSortBy, incrementPage } from '../../redux/psychologists/slice';
 import { fetchPsychologists } from '../../redux/psychologists/operations';
 import { fetchFavorites, toggleFavorite } from '../../redux/auth/operations';
 import {
@@ -29,7 +25,6 @@ import Button from '../ui/Button/Button';
 import css from './PsychologistsList.module.css';
 import {
   incrementFavoritesPage,
-  resetFavoritesPagination,
   setSortByFavorites,
 } from '../../redux/auth/slice';
 
@@ -51,12 +46,22 @@ const selectOptions = options.map(option => ({
 const PsychologistsList = ({ showFavorites = false }) => {
   const dispatch = useDispatch();
 
-  const psychologists = useSelector(showFavorites ? selectPaginatedFavorites : selectItems);
-  const sortBy = useSelector(showFavorites ? selectFavoritesSortBy : selectSortBy);
-  const lastKey = useSelector(showFavorites ? selectFavoritesLastKey : selectLastKey);
+  const psychologists = useSelector(
+    showFavorites ? selectPaginatedFavorites : selectItems
+  );
+  const sortBy = useSelector(
+    showFavorites ? selectFavoritesSortBy : selectSortBy
+  );
+  const lastKey = useSelector(
+    showFavorites ? selectFavoritesLastKey : selectLastKey
+  );
   const page = useSelector(showFavorites ? selectFavoritesPage : selectPage);
-  const hasMore = useSelector(showFavorites ? selectFavoritesHasMore : selectHasMore);
-  const isLoading = useSelector(showFavorites ? selectUserIsLoading : selectPsychologistIsLoading);
+  const hasMore = useSelector(
+    showFavorites ? selectFavoritesHasMore : selectHasMore
+  );
+  const isLoading = useSelector(
+    showFavorites ? selectUserIsLoading : selectPsychologistIsLoading
+  );
 
   const [openSelector, setOpenSelector] = useState(null);
 
@@ -64,30 +69,25 @@ const PsychologistsList = ({ showFavorites = false }) => {
 
   useEffect(() => {
     if (showFavorites) {
-      // dispatch(resetFavoritesPagination());
       dispatch(fetchFavorites());
-      // dispatch(setSortByFavorites('Show all'));
     } else {
-      // dispatch(resetPsychologists());
       dispatch(fetchPsychologists({ sortBy }));
     }
   }, [dispatch, sortBy, showFavorites]);
 
   const handleFilterChange = newFilter => {
     if (showFavorites) {
-      // dispatch(resetFavoritesPagination());
       dispatch(setSortByFavorites(newFilter));
       dispatch(fetchFavorites());
     } else {
       dispatch(setSortBy(newFilter));
-      // dispatch(resetPsychologists());
       dispatch(fetchPsychologists({ sortBy: newFilter }));
     }
   };
 
   const handleLoadMore = () => {
     if (showFavorites) {
-      dispatch(incrementFavoritesPage())
+      dispatch(incrementFavoritesPage());
       dispatch(fetchFavorites());
     } else {
       if (sortBy === 'Show all') {
