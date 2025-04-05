@@ -1,5 +1,7 @@
 ## Назва проєкту: Psychologists
 
+🟢 [Переглянути демо](https://psychologists-eight.vercel.app/)
+
 - 🔗 [Макет у Figma](https://www.figma.com/design/I5vjNb0NsJOpQRnRpMloSY/Psychologists.Services?node-id=0-1)
 - 📄 [Технічне завдання](https://docs.google.com/document/d/1PrTxBn6HQbb0Oz17g5_zvyLGIOZg0TIP3HPaEEp6ZLs/edit?tab=t.0)
 
@@ -67,19 +69,19 @@
   - Рейтинг: ↑ / ↓
 - Кнопка “Load More” для підвантаження
 
-[Psychologists page](./src/assets/img/readme/filter.png)
+![Psychologists page](./src/assets/img/readme/filter.png)
 
 ### Сторінка Favorites:
 - Персональний список улюблених
 - Сортування та пагінація, як на основній сторінці
 
-[Favorites page](./src/assets/img/readme/favorite.png)
+![Favorites page](./src/assets/img/readme/favorite.png)
 
 ### Бронювання:
 - Модальне вікно для запису
 - Дані запису зберігаються у (`appointments`)
 
-[Booking form](./src/assets/img/readme/modal.png)
+![Booking form](./src/assets/img/readme/modal.png)
 
 ---
 

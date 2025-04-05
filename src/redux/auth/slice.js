@@ -25,6 +25,7 @@ const INITIAL_STATE = {
     name: null,
     email: null,
     uid: null,
+    token: null,
   },
   favorites: [],
   paginatedFavorites: [],
@@ -61,15 +62,16 @@ const authSlice = createSlice({
       .addCase(registerUser.pending, handlePending)
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
         state.isLoggedIn = true;
+        state.user = action.payload;
       })
       .addCase(registerUser.rejected, handleRejected)
       .addCase(loginUser.pending, handlePending)
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
         state.isLoggedIn = true;
+        state.user = action.payload;
+        console.log('action.payload;: ', action.payload);
         state.favorites = action.payload.favorites;
       })
       .addCase(loginUser.rejected, handleRejected)
@@ -78,14 +80,15 @@ const authSlice = createSlice({
       })
       .addCase(currentUser.fulfilled, (state, action) => {
         state.isRefreshing = false;
+
         if (action.payload) {
-          state.user = action.payload;
           state.isLoggedIn = true;
-          state.favorites = action.payload.favorites;
+          state.user = action.payload;
+          // state.favorites = action.payload.favorites;
         } else {
-          state.user = { uid: null, name: '', email: '' };
           state.isLoggedIn = false;
-          state.favorites = [];
+          state.user = { uid: null, name: '', email: '' };
+          // state.favorites = [];
         }
       })
       .addCase(currentUser.rejected, (state, action) => {

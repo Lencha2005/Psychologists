@@ -40,3 +40,9 @@
 .orange {
   fill: #fc832c;
 }
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    left: 150px;
+  }
+}

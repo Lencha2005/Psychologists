@@ -41,6 +41,49 @@
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .menuList {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity var(--primary-transition),
+      transform var(--primary-transition);
+    pointer-events: none;
+  }
+
+  .open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .menuList li {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.4s ease forwards;
+  }
+
+  .menuList li:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .menuList li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .menuList li:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 @media (min-width: 1200px) {
   .menuList {
     position: static;

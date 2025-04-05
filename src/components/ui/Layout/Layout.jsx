@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 import Header from '../../Header/Header';
 import Container from '../Container/Container';
 import Loader from '../Loader/Loader';
-import ModalContainer from '../ModalContainer/ModalContainer';
 import css from './Layout.module.css';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -20,14 +20,14 @@ const Layout = ({ children }) => {
 
   return (
     <div className={`${css.layoutWrapper} ${getBackgroundClass()}`}>
-      <Header />
+      <Header/>
       <main>
         <Container>
           <Suspense fallback={<Loader />}>{children}</Suspense>
           <Outlet />
         </Container>
       </main>
-      <ModalContainer className={css.overlay} />
+      <ModalContainer/>
     </div>
   );
 };

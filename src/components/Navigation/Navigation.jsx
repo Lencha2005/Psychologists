@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -13,21 +13,34 @@ const Navigation = ({ onClose }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [isTablet, setIsTablet] = useState(
-    window.innerWidth >= 768 && window.innerWidth < 1200
-  );
+  const [isTablet, setIsTablet] = useState(false);
+  const menuRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => {
+    const checkTablet = () => {
       setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
       if (window.innerWidth >= 1200) {
         setIsOpen(false);
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    checkTablet();
+
+    window.addEventListener('resize', checkTablet);
+    return () => window.removeEventListener('resize', checkTablet);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -52,7 +65,7 @@ const Navigation = ({ onClose }) => {
       )}
 
       {(isTablet && isOpen) || !isTablet ? (
-        <ul className={clsx(css.menuList, isOpen && css.open)}>
+        <ul ref={menuRef} className={clsx(css.menuList, isOpen && css.open)}>
           <li>
             <NavLink className={buildCssClasses} to="/" onClick={onCloseModal}>
               Home

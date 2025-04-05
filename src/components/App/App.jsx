@@ -4,6 +4,7 @@ import '../../firebase/firebaseConfig';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  selectIsLoggedIn,
   selectIsRefreshing,
   selectUserIsLoading,
 } from '../../redux/auth/selectors';
@@ -13,6 +14,7 @@ import { PrivateRoute } from '../ui/PrivateRoute';
 import Layout from '../ui/Layout/Layout';
 import Notification from '../ui/Notification/Notification';
 import Loader from '../ui/Loader/Loader';
+// import ModalContainer from '../ui/ModalContainer/ModalContainer';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const PsychologistsPage = lazy(() =>
@@ -32,9 +34,20 @@ function App() {
   const isLoadingPsychologist = useSelector(selectPsychologistIsLoading);
   const theme = useSelector(state => state.theme.theme);
 
-  useEffect(() => {
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
+
+// useEffect(() => {
+//   if (!isRefreshing) {
+//     dispatch(currentUser());
+//   }
+// }, []);
+
+useEffect(() => {
+  // if (!isRefreshing) {
+    console.log("🚀 App → dispatching currentUser");
     dispatch(currentUser());
-  }, [dispatch]);
+  // }
+}, [dispatch]);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -47,6 +60,7 @@ function App() {
       {isRefreshing ? (
         <Loader />
       ) : (
+        <>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
@@ -58,6 +72,8 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
+        {/* <ModalContainer /> */}
+        </>
       )}
     </>
   );

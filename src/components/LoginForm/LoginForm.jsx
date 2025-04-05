@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import Button from '../ui/Button/Button';
 import sprite from '../../assets/sprite/sprite.svg';
 import css from './LoginForm.module.css';
+import Loader from '../ui/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -18,17 +19,25 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector(state => state.modal.modalType === 'login');
   const [showPassword, setShowPassword] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (values, actions) => {
+    console.log('📤 Submitting form...');
     try {
-      await dispatch(loginUser(values)).unwrap();
+      const result = await dispatch(loginUser(values)).unwrap();
+      console.log('result: ', result);
       actions.resetForm();
-      dispatch(closeModal());
+
+      // Затримка закриття на наступний animation frame
+      requestAnimationFrame(() => {
+        dispatch(closeModal());
+      });
     } catch (error) {
+      console.log('❌ Login error:', error);
       if (error.includes('auth/invalid-credential')) {
         toast.error('Incorrect email or password. Try again!');
       } else {
@@ -36,12 +45,13 @@ const LoginForm = () => {
       }
     }
   };
-
+  console.log('🧪 LoginForm rerendered');
   return (
     <>
       {isOpen && (
         <div className={css.modalContent}>
           <button
+          type='button'
             className={css.btnClose}
             onClick={() => dispatch(closeModal())}
           >
@@ -49,11 +59,14 @@ const LoginForm = () => {
               <use href={`${sprite}#icon-close`}></use>
             </svg>
           </button>
+          {isVisible ? (
+            <>
           <h2 className={css.title}>Log In</h2>
           <p className={css.text}>
             Welcome back! Please enter your credentials to access your account
             and continue your search for a psychologist.
           </p>
+        
           <Formik
             initialValues={initialValues}
             validationSchema={loginFormSchema}
@@ -106,6 +119,10 @@ const LoginForm = () => {
               </Button>
             </Form>
           </Formik>
+          </>
+          ) : (
+            <Loader/>
+          )}
         </div>
       )}
     </>
