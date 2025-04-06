@@ -9,4 +9,18 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  margin-bottom: 32px;
+}
+
+.btnLoadMore {
+  width: 176px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media screen and (min-width: 1200px) {
+  .list {
+    margin-bottom: 64px;
+  }
 }

@@ -19,6 +19,7 @@ const AuthMenu = ({ onClose }) => {
   return (
     <div className={css.wrap}>
       <Button
+        type="button"
         variant="log"
         className={css.btnLogin}
         onClick={() => {
@@ -28,6 +29,7 @@ const AuthMenu = ({ onClose }) => {
         Log In
       </Button>
       <Button
+        type="button"
         variant="default"
         className={css.btnRegistration}
         onClick={onSignUpClick}

@@ -13,17 +13,17 @@ const ThemeSwitcher = () => {
   return (
     <div className={css.wrapper}>
       <div className={css.btnWrap}>
-        <button className={css.btn} onClick={() => handleThemeChange('green')}>
+        <button type='button' className={css.btn} onClick={() => handleThemeChange('green')}>
           <svg className={css.green}>
             <use href={`${sprite}#icon-circle`}></use>
           </svg>
         </button>
-        <button className={css.btn} onClick={() => handleThemeChange('blue')}>
+        <button type='button' className={css.btn} onClick={() => handleThemeChange('blue')}>
           <svg className={css.blue}>
             <use href={`${sprite}#icon-circle`}></use>
           </svg>
         </button>
-        <button className={css.btn} onClick={() => handleThemeChange('orange')}>
+        <button type='button' className={css.btn} onClick={() => handleThemeChange('orange')}>
           <svg className={css.orange}>
             <use href={`${sprite}#icon-circle`}></use>
           </svg>

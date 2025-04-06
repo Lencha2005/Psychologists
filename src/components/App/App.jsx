@@ -1,20 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy, useEffect } from 'react';
 import '../../firebase/firebaseConfig';
-import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectIsLoggedIn,
   selectIsRefreshing,
   selectUserIsLoading,
 } from '../../redux/auth/selectors';
 import { selectPsychologistIsLoading } from '../../redux/psychologists/selectors';
 import { currentUser } from '../../redux/auth/operations';
 import { PrivateRoute } from '../ui/PrivateRoute';
-import Layout from '../ui/Layout/Layout';
 import Notification from '../ui/Notification/Notification';
+import Layout from '../ui/Layout/Layout';
 import Loader from '../ui/Loader/Loader';
-// import ModalContainer from '../ui/ModalContainer/ModalContainer';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const PsychologistsPage = lazy(() =>
@@ -34,20 +31,9 @@ function App() {
   const isLoadingPsychologist = useSelector(selectPsychologistIsLoading);
   const theme = useSelector(state => state.theme.theme);
 
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
-
-// useEffect(() => {
-//   if (!isRefreshing) {
-//     dispatch(currentUser());
-//   }
-// }, []);
-
-useEffect(() => {
-  // if (!isRefreshing) {
-    console.log("🚀 App → dispatching currentUser");
+  useEffect(() => {
     dispatch(currentUser());
-  // }
-}, [dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -61,18 +47,17 @@ useEffect(() => {
         <Loader />
       ) : (
         <>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/psychologists" element={<PsychologistsPage />} />
-            <Route
-              path="/favorites"
-              element={<PrivateRoute component={<FavoritesPage />} />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-        {/* <ModalContainer /> */}
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/psychologists" element={<PsychologistsPage />} />
+              <Route
+                path="/favorites"
+                element={<PrivateRoute component={<FavoritesPage />} />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
         </>
       )}
     </>

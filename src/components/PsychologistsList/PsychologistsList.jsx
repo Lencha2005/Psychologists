@@ -49,6 +49,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
   const psychologists = useSelector(
     showFavorites ? selectPaginatedFavorites : selectItems
   );
+  console.log('psychologists: ', psychologists);
   const sortBy = useSelector(
     showFavorites ? selectFavoritesSortBy : selectSortBy
   );
@@ -104,12 +105,11 @@ const PsychologistsList = ({ showFavorites = false }) => {
       psychologists.length > prevLengthRef.current &&
       prevLengthRef.current !== 0
     ) {
-      const height = 370;
-      const rows = 2;
-      window.scrollBy({
-        top: height * rows,
-        behavior: 'smooth',
-      });
+      const allCards = document.querySelectorAll('[data-psychologist-card]');
+      const newCard = allCards[prevLengthRef.current];
+      if (newCard) {
+        newCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
     prevLengthRef.current = psychologists.length;
   }, [psychologists]);
@@ -127,7 +127,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
       />
       <ul className={css.list}>
         {psychologists.map(item => (
-          <li key={item.id} className={css.item}>
+          <li key={item.id} className={css.item} data-psychologist-card>
             <PsychologistCard
               psychologist={item}
               onToggleFavorite={() => dispatch(toggleFavorite(item))}
@@ -136,7 +136,11 @@ const PsychologistsList = ({ showFavorites = false }) => {
         ))}
       </ul>
       {hasMore && !isLoading && (
-        <Button type="button" onClick={handleLoadMore}>
+        <Button
+          type="button"
+          className={css.btnLoadMore}
+          onClick={handleLoadMore}
+        >
           Load more
         </Button>
       )}

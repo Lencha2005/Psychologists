@@ -71,7 +71,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isLoggedIn = true;
         state.user = action.payload;
-        console.log('action.payload;: ', action.payload);
         state.favorites = action.payload.favorites;
       })
       .addCase(loginUser.rejected, handleRejected)
@@ -84,11 +83,11 @@ const authSlice = createSlice({
         if (action.payload) {
           state.isLoggedIn = true;
           state.user = action.payload;
-          // state.favorites = action.payload.favorites;
+          state.favorites = action.payload.favorites;
         } else {
           state.isLoggedIn = false;
           state.user = { uid: null, name: '', email: '' };
-          // state.favorites = [];
+          state.favorites = [];
         }
       })
       .addCase(currentUser.rejected, (state, action) => {

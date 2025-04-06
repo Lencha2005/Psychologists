@@ -3,7 +3,6 @@
     top: 400px;
     left: 50%;
     transform: translateY(-50%);
-    /* color: var(--button-bg-color); */
     display: flex;
     justify-content: center;
     align-items: center;

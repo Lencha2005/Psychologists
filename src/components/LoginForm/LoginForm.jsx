@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { loginFormSchema } from '../../schemas/schemas';
 import { loginUser } from '../../redux/auth/operations';
@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import Button from '../ui/Button/Button';
 import sprite from '../../assets/sprite/sprite.svg';
 import css from './LoginForm.module.css';
-import Loader from '../ui/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -17,27 +16,18 @@ const initialValues = {
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector(state => state.modal.modalType === 'login');
   const [showPassword, setShowPassword] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (values, actions) => {
-    console.log('📤 Submitting form...');
     try {
-      const result = await dispatch(loginUser(values)).unwrap();
-      console.log('result: ', result);
+      await dispatch(loginUser(values)).unwrap();
       actions.resetForm();
-
-      // Затримка закриття на наступний animation frame
-      requestAnimationFrame(() => {
-        dispatch(closeModal());
-      });
+      dispatch(closeModal());
     } catch (error) {
-      console.log('❌ Login error:', error);
       if (error.includes('auth/invalid-credential')) {
         toast.error('Incorrect email or password. Try again!');
       } else {
@@ -45,87 +35,77 @@ const LoginForm = () => {
       }
     }
   };
-  console.log('🧪 LoginForm rerendered');
+
   return (
-    <>
-      {isOpen && (
-        <div className={css.modalContent}>
-          <button
-          type='button'
-            className={css.btnClose}
-            onClick={() => dispatch(closeModal())}
-          >
-            <svg className={css.iconClose}>
-              <use href={`${sprite}#icon-close`}></use>
-            </svg>
-          </button>
-          {isVisible ? (
-            <>
-          <h2 className={css.title}>Log In</h2>
-          <p className={css.text}>
-            Welcome back! Please enter your credentials to access your account
-            and continue your search for a psychologist.
-          </p>
-        
-          <Formik
-            initialValues={initialValues}
-            validationSchema={loginFormSchema}
-            onSubmit={handleSubmit}
-          >
-            <Form className={css.form}>
-              <label>
-                <Field
-                  className={css.input}
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                />
-                <ErrorMessage
-                  className={css.errorMessage}
-                  name="email"
-                  component="span"
-                />
-              </label>
-              <label className={css.label}>
-                <Field
-                  className={css.input}
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  placeholder="Password"
-                />
-                <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className={css.eyeButton}
-                >
-                  <svg className={css.iconEye}>
-                    <use
-                      href={
-                        showPassword
-                          ? `${sprite}#icon-eye`
-                          : `${sprite}#icon-eye-off`
-                      }
-                    ></use>
-                  </svg>
-                </button>
-                <ErrorMessage
-                  className={css.errorMessage}
-                  name="password"
-                  component="span"
-                />
-              </label>
-              <Button type="submit" width="100%" className={css.btnLogIn}>
-                Log In
-              </Button>
-            </Form>
-          </Formik>
-          </>
-          ) : (
-            <Loader/>
-          )}
-        </div>
-      )}
-    </>
+    <div className={css.modalContent}>
+      <button
+        type="button"
+        className={css.btnClose}
+        onClick={() => dispatch(closeModal())}
+      >
+        <svg className={css.iconClose}>
+          <use href={`${sprite}#icon-close`}></use>
+        </svg>
+      </button>
+      <h2 className={css.title}>Log In</h2>
+      <p className={css.text}>
+        Welcome back! Please enter your credentials to access your account and
+        continue your search for a psychologist.
+      </p>
+
+      <Formik
+        initialValues={initialValues}
+        validationSchema={loginFormSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className={css.form}>
+          <label>
+            <Field
+              className={css.input}
+              type="text"
+              name="email"
+              placeholder="Email"
+            />
+            <ErrorMessage
+              className={css.errorMessage}
+              name="email"
+              component="span"
+            />
+          </label>
+          <label className={css.label}>
+            <Field
+              className={css.input}
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Password"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className={css.eyeButton}
+            >
+              <svg className={css.iconEye}>
+                <use
+                  href={
+                    showPassword
+                      ? `${sprite}#icon-eye`
+                      : `${sprite}#icon-eye-off`
+                  }
+                ></use>
+              </svg>
+            </button>
+            <ErrorMessage
+              className={css.errorMessage}
+              name="password"
+              component="span"
+            />
+          </label>
+          <Button type="submit" width="100%" className={css.btnLogIn}>
+            Log In
+          </Button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 

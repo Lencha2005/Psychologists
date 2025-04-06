@@ -25,7 +25,7 @@ const UserMenu = () => {
       </div>
       <Button
         variant="log"
-        type="bytton"
+        type="button"
         className={css.btnLogout}
         onClick={onLogout}
       >
