@@ -64,6 +64,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
   );
 
   const [openSelector, setOpenSelector] = useState(null);
+  const [isLoadMoreTriggered, setIsLoadMoreTriggered] = useState(false);
 
   const prevLengthRef = useRef(0);
 
@@ -86,6 +87,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
   };
 
   const handleLoadMore = () => {
+    setIsLoadMoreTriggered(true);
     if (showFavorites) {
       dispatch(incrementFavoritesPage());
       dispatch(fetchFavorites());
@@ -101,8 +103,9 @@ const PsychologistsList = ({ showFavorites = false }) => {
 
   useEffect(() => {
     if (
-      psychologists.length > prevLengthRef.current &&
-      prevLengthRef.current !== 0
+      isLoadMoreTriggered &&
+      psychologists.length > prevLengthRef.current
+      // prevLengthRef.current !== 0
     ) {
       const allCards = document.querySelectorAll('[data-psychologist-card]');
       const newCard = allCards[prevLengthRef.current];
