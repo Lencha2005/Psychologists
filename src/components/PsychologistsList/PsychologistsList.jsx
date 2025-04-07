@@ -86,6 +86,17 @@ const PsychologistsList = ({ showFavorites = false }) => {
     }
   };
 
+  const handleToggleFavorite = async psychologist => {
+    try {
+      await dispatch(toggleFavorite(psychologist)).unwrap();
+      if (showFavorites) {
+        dispatch(fetchFavorites());
+      }
+    } catch (error) {
+      console.error('❌ Failed to toggle favorite:', error);
+    }
+  };
+
   const handleLoadMore = () => {
     setIsLoadMoreTriggered(true);
     if (showFavorites) {
@@ -102,10 +113,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
   };
 
   useEffect(() => {
-    if (
-      isLoadMoreTriggered &&
-      psychologists.length > prevLengthRef.current
-    ) {
+    if (isLoadMoreTriggered && psychologists.length > prevLengthRef.current) {
       const allCards = document.querySelectorAll('[data-psychologist-card]');
       const newCard = allCards[prevLengthRef.current];
       if (newCard) {
@@ -131,12 +139,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
           <li key={item.id} className={css.item} data-psychologist-card>
             <PsychologistCard
               psychologist={item}
-              onToggleFavorite={async () => {
-                await dispatch(toggleFavorite(item));
-                if (showFavorites) {
-                  dispatch(fetchFavorites());
-                }
-              }}
+              onToggleFavorite={() => handleToggleFavorite(item)}
             />
           </li>
         ))}
