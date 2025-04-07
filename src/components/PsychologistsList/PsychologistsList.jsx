@@ -49,7 +49,6 @@ const PsychologistsList = ({ showFavorites = false }) => {
   const psychologists = useSelector(
     showFavorites ? selectFavorites : selectItems
   );
-  console.log('psychologists: ', psychologists);
   const sortBy = useSelector(
     showFavorites ? selectFavoritesSortBy : selectSortBy
   );
