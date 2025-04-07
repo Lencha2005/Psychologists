@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
-import { toggleFavorite } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
 import sprite from '../../assets/sprite/sprite.svg';
 import css from './PsychologistCard.module.css';
 
-const PsychologistCard = ({ psychologist }) => {
-  const dispatch = useDispatch();
+const PsychologistCard = ({ psychologist, onToggleFavorite }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some(item => item.id === psychologist.id);
@@ -23,7 +21,7 @@ const PsychologistCard = ({ psychologist }) => {
 
   const handleFavorites = () => {
     if (isLoggedIn) {
-      dispatch(toggleFavorite(psychologist));
+      onToggleFavorite();
     } else {
       toast.error('Functionality is available only to authorized users');
     }

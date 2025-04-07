@@ -49,7 +49,6 @@ const PsychologistsList = ({ showFavorites = false }) => {
   const psychologists = useSelector(
     showFavorites ? selectPaginatedFavorites : selectItems
   );
-  console.log('psychologists: ', psychologists);
   const sortBy = useSelector(
     showFavorites ? selectFavoritesSortBy : selectSortBy
   );
@@ -130,7 +129,12 @@ const PsychologistsList = ({ showFavorites = false }) => {
           <li key={item.id} className={css.item} data-psychologist-card>
             <PsychologistCard
               psychologist={item}
-              onToggleFavorite={() => dispatch(toggleFavorite(item))}
+              onToggleFavorite={async () => {
+                await dispatch(toggleFavorite(item));
+                if (showFavorites) {
+                  dispatch(fetchFavorites());
+                }
+              }}
             />
           </li>
         ))}
