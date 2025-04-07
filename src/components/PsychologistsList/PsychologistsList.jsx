@@ -105,7 +105,6 @@ const PsychologistsList = ({ showFavorites = false }) => {
     if (
       isLoadMoreTriggered &&
       psychologists.length > prevLengthRef.current
-      // prevLengthRef.current !== 0
     ) {
       const allCards = document.querySelectorAll('[data-psychologist-card]');
       const newCard = allCards[prevLengthRef.current];
