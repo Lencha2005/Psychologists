@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
         uid: userId,
         name: user.displayName,
         email: user.email,
-        token: await user.getIdToken(), // ✅
+        token: await user.getIdToken(), 
         favorites: [],
       };
     } catch (error) {
@@ -48,7 +48,7 @@ export const loginUser = createAsyncThunk(
       const { user } = await signInWithEmailAndPassword(auth, email, password);
 
       const userId = user.uid;
-      const token = await user.getIdToken(); // ✅
+      const token = await user.getIdToken(); 
 
       const userRef = ref(db, `users/${userId}`);
       const snapshot = await get(userRef);
@@ -69,7 +69,7 @@ export const loginUser = createAsyncThunk(
         uid: userId,
         name: user.displayName,
         email: user.email,
-        token, // ✅
+        token, 
         favorites,
       };
     } catch (error) {
@@ -87,7 +87,7 @@ export const currentUser = createAsyncThunk(
           return resolve(null);
         }
 
-        const token = await user.getIdToken(); // ✅
+        const token = await user.getIdToken();
         const userId = user.uid;
         const userRef = ref(db, `users/${userId}`);
         const snapshot = await get(userRef);
@@ -102,7 +102,7 @@ export const currentUser = createAsyncThunk(
           uid: userId,
           name: user.displayName,
           email: user.email,
-          token, // ✅
+          token, 
           favorites,
         });
       });

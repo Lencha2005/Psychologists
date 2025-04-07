@@ -6,12 +6,17 @@ import PsychologistDetails from '../PsychologistDetails/PsychologistDetails';
 import sprite from '../../assets/sprite/sprite.svg';
 import css from './PsychologistCard.module.css';
 
-const PsychologistCard = ({ psychologist, onToggleFavorite }) => {
+const PsychologistCard = ({
+  psychologist,
+  onToggleFavorite,
+  showFavorites,
+}) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some(item => item.id === psychologist.id);
 
   const [openReadMore, setOpenReadMore] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const reviews = psychologist.reviews;
 
@@ -20,10 +25,18 @@ const PsychologistCard = ({ psychologist, onToggleFavorite }) => {
   };
 
   const handleFavorites = () => {
-    if (isLoggedIn) {
-      onToggleFavorite();
-    } else {
+    if (!isLoggedIn) {
       toast.error('Functionality is available only to authorized users');
+      return;
+    }
+
+    if (showFavorites) {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        onToggleFavorite();
+      }, 300); // fadeOut time
+    } else {
+      onToggleFavorite();
     }
   };
 
@@ -36,7 +49,7 @@ const PsychologistCard = ({ psychologist, onToggleFavorite }) => {
   };
 
   return (
-    <div className={css.wrappperCard}>
+    <div className={`${css.wrappperCard} ${isFadingOut && css.fadeOut}`}>
       <div className={css.wrapperRating}>
         <p className={css.rating}>
           <svg className={css.iconStar}>

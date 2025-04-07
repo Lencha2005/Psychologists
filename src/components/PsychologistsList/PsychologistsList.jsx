@@ -12,11 +12,11 @@ import {
   selectPage,
 } from '../../redux/psychologists/selectors';
 import {
+  selectFavorites,
   selectFavoritesHasMore,
   selectFavoritesLastKey,
   selectFavoritesPage,
   selectFavoritesSortBy,
-  selectPaginatedFavorites,
   selectUserIsLoading,
 } from '../../redux/auth/selectors';
 import {
@@ -47,8 +47,9 @@ const PsychologistsList = ({ showFavorites = false }) => {
   const dispatch = useDispatch();
 
   const psychologists = useSelector(
-    showFavorites ? selectPaginatedFavorites : selectItems
+    showFavorites ? selectFavorites : selectItems
   );
+  console.log('psychologists: ', psychologists);
   const sortBy = useSelector(
     showFavorites ? selectFavoritesSortBy : selectSortBy
   );
@@ -140,6 +141,7 @@ const PsychologistsList = ({ showFavorites = false }) => {
             <PsychologistCard
               psychologist={item}
               onToggleFavorite={() => handleToggleFavorite(item)}
+              showFavorites={showFavorites}
             />
           </li>
         ))}

@@ -28,7 +28,6 @@ const INITIAL_STATE = {
     token: null,
   },
   favorites: [],
-  paginatedFavorites: [],
   lastKey: null,
   hasMore: false,
   sortBy: 'Show all',
@@ -97,17 +96,15 @@ const authSlice = createSlice({
       .addCase(fetchFavorites.pending, handlePending)
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.favorites = action.payload;
-
-        const sorted = applySorting(state.favorites, state.sortBy);
+        const sorted = applySorting(action.payload, state.sortBy);
         const { paginated, hasMore, lastKey } = paginate(sorted, state.page);
+        
         if (state.page === 1) {
-          state.paginatedFavorites = paginated;
+          state.favorites = paginated;
         } else {
-          state.paginatedFavorites = [
-            ...state.paginatedFavorites,
-            ...paginated,
-          ];
+          const existingIds = new Set(state.favorites.map(item => item.id));
+          const filtered = paginated.filter(item => !existingIds.has(item.id));
+          state.favorites = [...state.favorites, ...filtered];
         }
         state.hasMore = hasMore;
         state.lastKey = lastKey;
